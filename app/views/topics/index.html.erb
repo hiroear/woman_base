@@ -1,0 +1,15 @@
+<h1>Topics一覧</h1>
+<ul>
+  <% @topics.each do |topic| %>
+    <li><%= link_to topic.title, "#" %></li>
+  <% end %>
+</ul>
+
+<button>＋トピックを作成する</button>
+
+<h2>カテゴリ一覧</h2>
+<ul>
+  <% @categories.each do |category| %>
+    <li><%= link_to category.name, "#" %></li>
+  <% end %>
+</ul>
