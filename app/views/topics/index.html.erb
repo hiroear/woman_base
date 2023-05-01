@@ -1,11 +1,56 @@
 <h1>Topics一覧</h1>
-<ul>
-  <% @topics.each do |topic| %>
-    <li><%= link_to topic.title, "#" %></li>
+<table class="table">
+  <% @topics.each do |topic|%>
+    <tr>
+      <td colspan="4"><%= link_to topic.title, topic_path(topic) %></td>
+      <td><%= topic.category.name %></td>
+      <td><%= l topic.updated_at, format: :long%></td>
+    </tr>
   <% end %>
-</ul>
+</table>
 
-<button>＋トピックを作成する</button>
+<%# トピック新規作成モーダル %>
+<%= form_with model: @topic, url: topics_path, method: :post, local: true do |f| %>
+  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newFormModal">＋トピックを作成する</button>
+  <div class="modal fade" id="newFormModal" tabindex="-1" aria-labelledby="newFormModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold" id="newFormModalLabel">トピックを作成する</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <%= f.label :name, "ニックネーム", class: "col-form-label me-1" %><span class="badge bg-danger">必須</span>
+            <%= f.text_field :name, class: "form-control", placeholder: '20文字以内', required: 'required' %><%#
+            <label for="topic_name" class="col-form-label">商品名</label>
+            <input type="text" class="form-control" name="topic[name]" id="topic_name"> %>
+          </div>
+          <div class="mb-3">
+            <%= f.label "内容の入力", class: "col-form-label me-1 mb-1" %><span class="badge bg-danger">必須</span>
+            <%= f.text_field :title, class: "form-control mb-1", placeholder: 'タイトルを入力 (48文字以内)', required: 'required' %>
+            <%= f.text_area :description, class: "form-control", placeholder: '内容を入力', required: 'required' %>
+          </div>
+          <div class="mb-3">
+            <%= f.label :category_id, "カテゴリを選択", class: "col-form-label me-1" %><span class="badge bg-danger">必須</span>
+            <%= f.select :category_id, @categories.map { |category| [category.name, category.id] }, {}, class: 'form-select' %>
+            <%#= f.collection_select(:category_id, @categories, :id, :name) でもOK
+            <select name="topic[category_id]" id="topic_category_id" class="form-select">
+              <option value="1">ファッション〜</option><option value="2">ニュース</option><option value="3">健康</option>...
+            </select> %>
+          </div>
+        </div><!--.modal-body-->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+          <%= f.submit '作成する', class: 'btn btn-success' %>
+        </div>
+      </div>
+    </div><!--.modal-dialog-->
+  </div>
+<% end %>
+
+
+
 
 <h2>カテゴリ一覧</h2>
 <ul>

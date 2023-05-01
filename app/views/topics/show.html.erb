@@ -1,0 +1,4 @@
+<h1><%= @topic.title %><span class="h6"><%= @topic.category.name %></span></h1>
+<%= @topic.name %><br>
+<%= l @topic.created_at, format: :long %><br>
+<%= simple_format(h(@topic.description)) %>
