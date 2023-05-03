@@ -1,4 +1,25 @@
 <h1><%= @topic.title %><span class="h6"><%= @topic.category.name %></span></h1>
 <%= @topic.name %><br>
-<%= l @topic.created_at, format: :long %><br>
+<%= l @topic.created_at, format: :short %><br>
 <%= simple_format(h(@topic.description)) %>
+
+<h3>コメントする</h3>
+<%= form_with model: @post, url: topic_posts_path(@topic) do |f| %>
+  <%# posts#createへ POST でとぶ%>
+  <%= f.text_field :name, class: 'form-control w-50', placeholder: 'ニックネーム（20文字以内）', required: 'required' %>
+  <%= f.text_area :content, class: 'form-control w-50', placeholder: 'コメントを入力', required: 'required' %>
+  <%= f.submit "投稿する", class: 'btn btn-primary' %>
+<% end %>
+
+<table class="table">
+  <%= link_to '&nbsp;新着順&nbsp;&nbsp;|'.html_safe, topic_path(@topic, latest: 'true') %>
+  <%= link_to '&nbsp;&nbsp;投稿順&nbsp;'.html_safe, topic_path(@topic, old: 'true') %>
+
+  <% @posts.each.with_index(1) do |post, index|%>
+    <tr>
+      <td><%= index %>.&nbsp;&nbsp;<%= post.name %></td>
+      <td><%= simple_format(h(post.content)) %></td>
+      <td><%= l post.updated_at, format: :short %></td>
+    </tr>
+  <% end %>
+</table>

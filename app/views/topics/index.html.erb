@@ -1,60 +1,138 @@
-<h1>Topics一覧</h1>
+<%= link_to 'コミュニティ', root_path, class: 'h2' %>
+<%= link_to 'メディア', media_path, class: 'h2' %>
+<%= link_to 'サイトについて', "#", class: 'h2' %>
+
+<p>女性の本音があふれる掲示板</p>
+<h1>Woman Base コミュニティ</h1>
+
+<h3>＜新着＞</h3>
 <table class="table">
-  <% @topics.each do |topic|%>
+  <% @newtopics.each do |topic|%>
     <tr>
-      <td colspan="4"><%= link_to topic.title, topic_path(topic) %></td>
+      <td><%= topic.id %></td>
+      <td><%= link_to topic.title, topic_path(topic) %></td>
       <td><%= topic.category.name %></td>
-      <td><%= l topic.updated_at, format: :long%></td>
+      <td>コメント: <%= topic.posts.count %></td>
+      <td><%= l topic.updated_at, format: :short%></td>
     </tr>
   <% end %>
-</table>
+</table><br>
 
-<%# トピック新規作成モーダル %>
-<%= form_with model: @topic, url: topics_path, method: :post, local: true do |f| %>
-  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newFormModal">＋トピックを作成する</button>
-  <div class="modal fade" id="newFormModal" tabindex="-1" aria-labelledby="newFormModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title fw-bold" id="newFormModalLabel">トピックを作成する</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<%# <div class="container"> %>
+  <div class="row">
+    <div class="col-7">
+      <h3>トピックを探す</h3>
+        <%= form_with url: topics_path, method: :get, local: true, class: 'd-flex mb-3' do |f| %>
+          <%= f.text_field :keyword, class: "form-control w-50 me-2", placeholder: 'キーワード検索' %>
+          <%= f.submit 'トピック検索', class: 'btn btn-outline-secondary text-nowrap' %>
+        <% end %>
+        <%#= @keyword %>
+
+      <h5>【 カテゴリで探す 】</h5>
+        <% @categories.each do |category| %>
+          <%= link_to category.name, topics_path(category: category.id),  class: 'btn btn-secondary mb-3' %><%#= category.id %>
+        <% end %>
+
+      <h5>【 #タグで探す 】</h5>
+      <%= link_to '# 結婚', topics_path(keyword: '結婚'),  class: 'btn btn-secondary mb-3' %>
+      <%= link_to '# ダイエット', topics_path(keyword: 'ダイエット'),  class: 'btn btn-secondary mb-3' %>
+      <%= link_to '# 職場', topics_path(keyword: '職場'),  class: 'btn btn-secondary mb-3' %>
+      <%= link_to '# 美容', topics_path(keyword: '美容'),  class: 'btn btn-secondary mb-3' %>
+      <%= link_to '# 妊娠', topics_path(keyword: '妊娠'),  class: 'btn btn-secondary mb-3' %>
+      <%= link_to '# 育児', topics_path(keyword: '育児'),  class: 'btn btn-secondary mb-3' %>
+      <%= link_to '# ドラマ', topics_path(keyword: 'ドラマ'),  class: 'btn btn-secondary mb-3' %>
+      <%= link_to '# コロナ', topics_path(keyword: 'コロナ'),  class: 'btn btn-secondary mb-3' %>
+      <%= link_to '# 料理', topics_path(keyword: '料理'),  class: 'btn btn-secondary mb-3' %>
+      <hr>
+
+      <h3>Topics一覧</h3>
+      <% if @category.present? %>
+        <h5><%= @category.name %>の投稿&nbsp;<%= @topics.count %>件</h5>
+        <div class="d-flex">
+          <%= button_to '新着順', topics_path, {method: :get, params: {category: @category.id, cate_new: 'true'}, class: 'me-2'} %>
+          <%= button_to '投稿順', topics_path, {method: :get, params: {category: @category.id, cate_old: 'true'}} %>
         </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <%= f.label :name, "ニックネーム", class: "col-form-label me-1" %><span class="badge bg-danger">必須</span>
-            <%= f.text_field :name, class: "form-control", placeholder: '20文字以内', required: 'required' %><%#
-            <label for="topic_name" class="col-form-label">商品名</label>
-            <input type="text" class="form-control" name="topic[name]" id="topic_name"> %>
-          </div>
-          <div class="mb-3">
-            <%= f.label "内容の入力", class: "col-form-label me-1 mb-1" %><span class="badge bg-danger">必須</span>
-            <%= f.text_field :title, class: "form-control mb-1", placeholder: 'タイトルを入力 (48文字以内)', required: 'required' %>
-            <%= f.text_area :description, class: "form-control", placeholder: '内容を入力', required: 'required' %>
-          </div>
-          <div class="mb-3">
-            <%= f.label :category_id, "カテゴリを選択", class: "col-form-label me-1" %><span class="badge bg-danger">必須</span>
-            <%= f.select :category_id, @categories.map { |category| [category.name, category.id] }, {}, class: 'form-select' %>
-            <%#= f.collection_select(:category_id, @categories, :id, :name) でもOK
-            <select name="topic[category_id]" id="topic_category_id" class="form-select">
-              <option value="1">ファッション〜</option><option value="2">ニュース</option><option value="3">健康</option>...
-            </select> %>
-          </div>
-        </div><!--.modal-body-->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
-          <%= f.submit '作成する', class: 'btn btn-success' %>
+      <% elsif @keyword.present? %>
+        <h5># <%= @keyword %>の投稿&nbsp;&nbsp;<%= @topics.count %>件</h5>
+        <div class="d-flex">
+          <%= button_to '新着順', topics_path, {method: :get, params: {keyword: @keyword, keynew: 'true'}, class: 'me-2'} %>
+          <%= button_to '投稿順', topics_path, {method: :get, params: {keyword: @keyword, keyold: 'true'}} %>
         </div>
-      </div>
-    </div><!--.modal-dialog-->
-  </div>
-<% end %>
+      <% else %>
+        <%= link_to '&nbsp;新着順&nbsp;&nbsp;|'.html_safe, topics_path(newest: 'true') %>
+        <%= link_to '&nbsp;&nbsp;投稿順&nbsp;'.html_safe, topics_path(oldest: 'true') %>
+      <% end %>
 
+      <%# Topics一覧%>
+      <table class="table">
+        <% @topics.each do |topic|%>
+          <tr>
+            <td><%= topic.id %></td>
+            <td><%= link_to topic.title, topic_path(topic) %></td>
+            <td><%= topic.category.name %></td>
+            <td><%= topic.posts.count %></td>
+            <td><%= l topic.updated_at, format: :short%></td>
+          </tr>
+        <% end %>
+      </table>
 
+      <%= paginate @topics, theme: 'bootstrap-5' %>
+    </div><%# .col-7 %>
 
+    <div class="col-5">
+      <%# トピック新規作成モーダル %>
+      <%= form_with model: @topic, url: topics_path, method: :post, local: true do |f| %>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newFormModal">＋トピックを作成する</button>
+        <div class="modal fade" id="newFormModal" tabindex="-1" aria-labelledby="newFormModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title fw-bold" id="newFormModalLabel">トピックを作成する</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <%= f.label :name, "ニックネーム", class: "col-form-label me-1" %><span class="badge bg-danger">必須</span>
+                  <%= f.text_field :name, class: "form-control", placeholder: '20文字以内', required: 'required' %><%#
+                  <label for="topic_name" class="col-form-label">商品名</label>
+                  <input type="text" class="form-control" name="topic[name]" id="topic_name"> %>
+                </div>
+                <div class="mb-3">
+                  <%= f.label "内容の入力", class: "col-form-label me-1 mb-1" %><span class="badge bg-danger">必須</span>
+                  <%= f.text_field :title, class: "form-control mb-1", placeholder: 'タイトルを入力 (48文字以内)', required: 'required' %>
+                  <%= f.text_area :description, class: "form-control", placeholder: '内容を入力', required: 'required' %>
+                </div>
+                <div class="mb-3">
+                  <%= f.label :category_id, "カテゴリを選択", class: "col-form-label me-1" %><span class="badge bg-danger">必須</span>
+                  <%= f.select :category_id, @categories.map { |category| [category.name, category.id] }, {}, class: 'form-select' %>
+                  <%#= f.collection_select(:category_id, @categories, :id, :name) でもOK
+                  <select name="topic[category_id]" id="topic_category_id" class="form-select">
+                    <option value="1">ファッション〜</option><option value="2">ニュース</option><option value="3">健康</option>...
+                  </select> %>
+                </div>
+              </div><!--.modal-body-->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+                <%= f.submit '作成する', class: 'btn btn-success' %>
+              </div>
+            </div>
+          </div><!--.modal-dialog-->
+        </div>
+      <% end %>
+      <br>
 
-<h2>カテゴリ一覧</h2>
-<ul>
-  <% @categories.each do |category| %>
-    <li><%= link_to category.name, "#" %></li>
-  <% end %>
-</ul>
+      <h3>＜人気ランキング＞</h3>
+      <table class="table">
+        <% @ranktopics.each do |topic|%>
+          <tr>
+            <td><%#= topic.id %></td>
+            <td><%= link_to topic.title, topic_path(topic) %></td>
+            <td><%= topic.category.name %></td>
+            <td><%= topic.posts.count %></td>
+            <td><%= l topic.updated_at, format: :short%></td>
+          </tr>
+        <% end %>
+      </table><br>
+    </div><%# .col-5 %>
+  </div><%# .row %>
+<%# </div>.containar %>

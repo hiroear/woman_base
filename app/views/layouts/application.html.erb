@@ -9,35 +9,45 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/2d6f3622dc.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
     <header>
       <nav class="navbar navbar-expand-md navbar-light bbs-header-container">
         <div class="container-fluid">
-          <%= link_to "#", class: "navbar-brand" do %>
-            ロゴイメージ
-          <% end %>
+          <div class="row">
+            女性のための情報プラットフォーム
+            <%= link_to root_path, class: "navbar-brand" do %>
+              ロゴイメージ
+            <% end %>
+          </div>
 
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse mb-1 mt-1" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">ウォッチリスト</a>
+                <%# <a class="nav-link active text-nowrap" aria-current="page" href="#">コミュニティ</a> %>
+                <%= link_to 'コミュニティ', root_path, class: 'nav-link active text-nowrap' %>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">マイページ</a>
+                <%= link_to 'メディア', media_path, class: 'nav-link text-nowrap' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'サイトについて', "#", class: 'nav-link text-nowrap' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to '新規会員登録', "#", class: 'nav-link btn btn-outline-warning text-nowrap' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'ログイン', "#", class: 'nav-link btn btn-outline-info text-nowrap' %>
               </li>
               <%# <li class="nav-item">
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
               </li> %>
             </ul>
-            <form class="d-flex">
-              <input class="form-control me-2" type="text" placeholder="キーワード検索" aria-label="Search">
-              <button class="btn btn-outline-secondary text-nowrap" type="submit">検索</button>
-            </form>
           </div>
         </div><%# .container-fluid%>
       </nav>
