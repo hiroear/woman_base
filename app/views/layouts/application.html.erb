@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Womanbbs</title>
+    <title>WOMAN BASE</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="女性のための情報プラットフォーム">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400&family=Noto+Sans+JP:wght@200;300;400&family=Open+Sans&display=swap" rel="stylesheet">
 
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -14,46 +19,128 @@
 
   <body>
     <header>
-      <nav class="navbar navbar-expand-md navbar-light bbs-header-container">
-        <div class="container-fluid">
-          <div class="row">
-            女性のための情報プラットフォーム
-            <%= link_to root_path, class: "navbar-brand" do %>
-              ロゴイメージ
-            <% end %>
-          </div>
+      <p class="headercopy">女性のための情報プラットフォーム</p>
+      <div class="header-logo-menu">
+        <div class="logo-area">
+          <%= link_to root_path do %>
+            <%= image_tag "/images/logo.jpg", alt: 'WOMAN BASE Logo' %>
+          <% end %>
+        </div>
 
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse mb-1 mt-1" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <%# <a class="nav-link active text-nowrap" aria-current="page" href="#">コミュニティ</a> %>
-                <%= link_to 'コミュニティ', root_path, class: 'nav-link active text-nowrap' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to 'メディア', media_path, class: 'nav-link text-nowrap' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to 'サイトについて', "#", class: 'nav-link text-nowrap' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to '新規会員登録', "#", class: 'nav-link btn btn-outline-warning text-nowrap' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to 'ログイン', "#", class: 'nav-link btn btn-outline-info text-nowrap' %>
-              </li>
-              <%# <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-              </li> %>
-            </ul>
-          </div>
-        </div><%# .container-fluid%>
-      </nav>
+        <nav class="pc-only">
+          <button class="pc-register-button" type="button"><a href="#">新規会員登録</a></button>
+          <button class="pc-login-button" type="button"><a href="#">ログイン</a></button>
+        </nav>
+
+        <nav class="sp-only">
+          <button class="header-button"><span></span></button>
+
+          <ul class="sp-nav">
+            <button class="sp-login-button" type="button"><a href="#">ログイン</a></button>
+            <li id="community-nav" class="header-nav-item"><a href=topics#index>コミュニティ</a></li>
+            <li id="media-nav" class="header-nav-item"><a href="#">メディア</a></li>
+            <li id="about-nav" class="header-nav-item"><a href="#">サイトについて</a></li>
+            <div class="spnav-sns">
+              <%= link_to "#", class: 'text-decoration-none' do %>
+                <%# <i class='fa fa-twitter fa-3x fa-fw'></i> %>
+                <span class="sp-twitter"></span>
+              <% end %>
+              <%= link_to "#", class: 'text-decoration-none' do %>
+                <span class="sp-instagram"></span>
+              <% end %>
+            </div>
+            <div class="sp-logo">
+              <%= link_to root_path do %>
+                <%= image_tag "/images/logo.jpg", alt: 'WOMAN BASE Logo' %>
+              <% end %>
+            </div>
+          </ul>
+
+          <button class="sp-register-button" type="button"><a href="#">新規会員登録</a></button>
+          <br>
+        </nav>
+      </div><%# .header-logo-menu%>
     </header>
-    <main class="py-4 mb-5">
-      <%= yield %>
-    </main>
+
+    <%= yield %>
+
+    <footer>
+      <div class="footer-top">
+        <div class="footer-sns">
+          <%= link_to "#", class: 'text-decoration-none' do %>
+            <%# <i class='fa fa-twitter fa-3x fa-fw'></i> %>
+            <span class="twitter"></span>
+          <% end %>
+          <%= link_to "#", class: 'text-decoration-none' do %>
+            <span class="instagram"></span>
+          <% end %>
+
+        </div>
+      </div>
+      <div class="copyright">
+        <div class="footer-logo">
+          <a href="index.html"><img src="" alt="Footer Logo"></a>
+        </div>
+        <p>Copyright © 2023 Woman Base.</p>
+      </div>
+    </footer>
+
+    <script>
+      jQuery(function ($) {
+        $('.header-button').on('click', function () {
+          $('body').toggleClass('open');
+        });
+
+        // $('#search-btn').click(function(){
+        //   $(window).on('load',function(){
+        //       $('html,body').animate({scrollTop: 1000}, 'slow');
+          
+        //   });
+        // });
+
+        // $('#search-btn').click(function(){
+        //   window.onload = function(){
+        //     $('html,body').animate({
+        //       scrollTop : 2000
+        //     })
+        //   }
+        // })
+        
+      <%# // ハンバーガーメニューからのスクロール設定
+      $('#sp-about-nav a').click(function(){
+      $('html,body').animate({
+      scrollTop : 690
+      })
+      $('body').toggleClass('open');
+      })
+
+      $('#sp-map-nav a').click(function(){
+      $('html,body').animate({
+      scrollTop : 1350
+      })
+      $('body').toggleClass('open');
+      })
+      
+      PCトップからのスクロール設定
+      $('#pc-home-nav a').click(function(){
+        $('html,body').animate({
+          scrollTop : 0
+        })
+      })
+      $('#pc-about-nav a').click(function(){
+        $('html,body').animate({
+          scrollTop : 695
+        })
+      })
+    
+      $('#pc-map-nav a').click(function(){
+        $('html,body').animate({
+          scrollTop : 1350
+        })
+    
+      }) %>
+      });
+    </script>
+
   </body>
 </html>

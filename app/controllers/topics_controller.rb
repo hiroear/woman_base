@@ -6,15 +6,15 @@ class TopicsController < ApplicationController
       @keyword = params[:keyword].strip
       if params[:keynew].present?                              # 降順
         @topics = Topic.search_topic(@keyword).latest.page(params[:page]).per(PER)
-        @newtopics = Topic.latest.limit(PER)
+        @newtopics = Topic.latest.limit(5)
         @ranktopics = Topic.most_posts.limit(PER)
       elsif params[:keyold].present?                           # 昇順
         @topics = Topic.search_topic(@keyword).old.page(params[:page]).per(PER)
-        @newtopics = Topic.latest.limit(PER)
+        @newtopics = Topic.latest.limit(5)
         @ranktopics = Topic.most_posts.limit(PER)
       else                                                     # デフォルト表示
         @topics = Topic.search_topic(@keyword).page(params[:page]).per(PER)
-        @newtopics = Topic.latest.limit(PER)
+        @newtopics = Topic.latest.limit(5)
         @ranktopics = Topic.most_posts.limit(PER)
       end
 
@@ -23,30 +23,30 @@ class TopicsController < ApplicationController
       @category = Category.find(params[:category].to_i)
       if params[:cate_new].present?                            # 降順
         @topics = Topic.where(category_id: @category).latest.page(params[:page]).per(PER)
-        @newtopics = Topic.latest.limit(PER)
+        @newtopics = Topic.latest.limit(5)
         @ranktopics = Topic.most_posts.limit(PER)
       elsif params[:cate_old].present?                         # 昇順
         @topics = Topic.where(category_id: @category).old.page(params[:page]).per(PER)
-        @newtopics = Topic.latest.limit(PER)
-        @ranktopics = Topic.most_posts.limit(10)
+        @newtopics = Topic.latest.limit(5)
+        @ranktopics = Topic.most_posts.limit(PER)
       else                                                     # デフォルト表示
         @topics = Topic.where(category_id: @category).page(params[:page]).per(PER)
-        @newtopics = Topic.latest.limit(PER)
+        @newtopics = Topic.latest.limit(5)
         @ranktopics = Topic.most_posts.limit(PER)
       end
 
     else  # デフォルト
       if params[:newest].present?
         @topics = Topic.latest.page(params[:page]).per(PER)                             # 降順
-        @newtopics = Topic.latest.limit(PER)
+        @newtopics = Topic.latest.limit(5)
         @ranktopics = Topic.most_posts.limit(PER)
       elsif params[:oldest].present?
         @topics = Topic.old.page(params[:page]).per(PER)                                # 昇順
-        @newtopics = Topic.latest.limit(PER)
+        @newtopics = Topic.latest.limit(5)
         @ranktopics = Topic.most_posts.limit(PER)
       else                                            # Topics一覧
         @topics = Topic.old.page(params[:page]).per(PER)
-        @newtopics = Topic.latest.limit(PER)
+        @newtopics = Topic.latest.limit(5)
         @ranktopics = Topic.most_posts.limit(PER)
       end
     end
