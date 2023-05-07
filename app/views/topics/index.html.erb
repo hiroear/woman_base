@@ -1,19 +1,11 @@
-<nav class="pc-only">
-  <ul class="pc-nav">
-    <li id="community-nav" class="header-nav-item"><a href=topics#index>コミュニティ</a></li>
-    <li id="media-nav" class="header-nav-item"><a href="#">メディア</a></li>
-    <li id="about-nav" class="header-nav-item"><a href="#">サイトについて</a></li>
-  </ul>
-</nav>
-
 <main>
   <div class="main">
     <div class="main-image">
-      <img src="" alt="main Logo"><a href=""></a>
+      <%= image_tag "/images/logo_community.png", alt: 'main Logo' %>
       <p>全国の女性達のハッピーライフを応援する交流掲示板です。<br>仕事や恋愛、家事に子育て、美容や健康の悩みまで、幅広い話題で盛り上がれます！ <br>合間の息抜きにぜひご利用ください。</p>
     </div>
 
-    <section class="flame">
+    <section class="frame">
       <%# 新着トピック %>
       <div class="newtopic-list">
         <div class="newtopic-title">
@@ -23,8 +15,7 @@
             <% @newtopics.each do |topic| %>
                 <li class="topic-item">
                   <span class="item-title"><%= link_to topic.title, topic_path(topic)%></span>
-                  <span class="item-day"><%= l topic.updated_at, format: :short %></span>
-                  <span class="item-comment"><%= topic.category.name %><span class="comment"></span><%= topic.posts.count %></span>
+                  <%= render partial: "layouts/item", locals: { topic: topic } %>
                 </li>
             <% end %>
           </div>
@@ -37,8 +28,7 @@
         <div class="input-search">
           <%= form_with url: topics_path(anchor: 'post-anchor'), method: :get, local: true, class: 'd-flex mt-2 mb-3 mx-3 p-4' do |f| %>
             <%= f.text_field :keyword, class: "form-control w-75 me-2", placeholder: 'キーワードを入力' %>
-            <%#= f.submit 'トピック検索', class: 'btn text-nowrap' %>
-            <button type="submit" class="text-nowrap" id="search-btn"><span class="search-mini"></span>検索</button>
+            <button type="submit" class="text-nowrap"><span class="search-mini"></span>検索</button>
           <% end %>
         </div>
 
@@ -46,7 +36,7 @@
           <p><span class='category-icon'></span>カテゴリーで探す</p>
           <div class="category-button">
             <% @categories.each do |category| %>
-              <%= link_to category.name, topics_path(category: category.id, anchor: 'post-anchor'),  class: 'button' %><%#= category.id %>
+              <%= link_to category.name, topics_path(category: category.id, anchor: 'post-anchor'),  class: 'button' %>
             <% end %>
           </div>
         </div>
@@ -54,15 +44,9 @@
         <div class="tag-serch">
           <p><span class='tag-icon'></span>タグで探す</p>
           <div class="tag-button">
-            <%= link_to '# 結婚', topics_path(keyword: '結婚', anchor: 'post-anchor'),  class: 'button' %>
-            <%= link_to '# ダイエット', topics_path(keyword: 'ダイエット', anchor: 'post-anchor'),  class: 'button' %>
-            <%= link_to '# 職場', topics_path(keyword: '職場', anchor: 'post-anchor'),  class: 'button' %>
-            <%= link_to '# 美容', topics_path(keyword: '美容', anchor: 'post-anchor'),  class: 'button' %>
-            <%= link_to '# 妊娠', topics_path(keyword: '妊娠', anchor: 'post-anchor'),  class: 'button' %>
-            <%= link_to '# 育児', topics_path(keyword: '育児', anchor: 'post-anchor'),  class: 'button' %>
-            <%= link_to '# ドラマ', topics_path(keyword: 'ドラマ', anchor: 'post-anchor'),  class: 'button' %>
-            <%= link_to '# コロナ', topics_path(keyword: 'コロナ', anchor: 'post-anchor'),  class: 'button' %>
-            <%= link_to '# 料理', topics_path(keyword: '料理', anchor: 'post-anchor'),  class: 'button' %>
+            <% @tags.each do |tag| %>
+              <%= link_to "##{tag}", topics_path(keyword: tag, anchor: 'post-anchor'),  class: 'button' %>
+            <% end %>
           </div>
         </div>
 
@@ -95,8 +79,7 @@
             <% @topics.each do |topic|%>
               <li class="topic-item">
                 <span class="item-title"><%= link_to topic.title, topic_path(topic) %></span>
-                <span class="item-day"><%= l topic.updated_at, format: :short%></span>
-                <span class="item-comment"><%= topic.category.name %><span class="comment"></span><%= topic.posts.count %></span>
+                <%= render partial: "layouts/item", locals: { topic: topic } %>
               </li>
             <% end %>
             <%= paginate @topics, theme: 'bootstrap-5', pagination_class: "pagination-sm flex-wrap" %>
@@ -113,7 +96,7 @@
           <p>美容や健康、仕事に子育てなど、女性に関するあらゆる相談から、テレビや芸能人に関する雑談など何でもOK！</p>
         </div>
         <%# トピック新規作成モーダル %>
-        <%= form_with model: @topic, url: topics_path, method: :post, local: true do |f| %>
+        <%= form_with model: @topic, url: topics_path(anchor: 'post-anchor'), method: :post, local: true do |f| %>
           <button type="button" class="create-topic-button" data-bs-toggle="modal" data-bs-target="#newFormModal"><span class="plus-icon"></span>トピックを作成する</button>
           <div class="modal fade" id="newFormModal" tabindex="-1" aria-labelledby="newFormModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -162,51 +145,40 @@
             <% if i == 1 %>
               <%#= i %>
               <span class="rank-title1"><%= link_to topic.title, topic_path(topic) %></span><br>
-              <span class="item-day"><%= l topic.updated_at, format: :short%></span>
-              <span class="item-comment"><%= topic.category.name %><span class="comment"></span><%= topic.posts.count %></span>
+              <%= render partial: "layouts/item", locals: { topic: topic } %>
             <% elsif i == 2 %>
               <span class="rank-title2"><%= link_to topic.title, topic_path(topic) %></span><br>
-              <span class="item-day"><%= l topic.updated_at, format: :short%></span>
-              <span class="item-comment"><%= topic.category.name %><span class="comment"></span><%= topic.posts.count %></span>
+              <%= render partial: "layouts/item", locals: { topic: topic } %>
             <% elsif i == 3 %>
               <span class="rank-title3"><%= link_to topic.title, topic_path(topic) %></span><br>
-              <span class="item-day"><%= l topic.updated_at, format: :short%></span>
-              <span class="item-comment"><%= topic.category.name %><span class="comment"></span><%= topic.posts.count %></span>
+              <%= render partial: "layouts/item", locals: { topic: topic } %>
             <% elsif i == 4 %>
               <span class="rank-title4"><%= link_to topic.title, topic_path(topic) %></span><br>
-              <span class="item-day"><%= l topic.updated_at, format: :short%></span>
-              <span class="item-comment"><%= topic.category.name %><span class="comment"></span><%= topic.posts.count %></span>
+              <%= render partial: "layouts/item", locals: { topic: topic } %>
             <% elsif i == 5 %>
               <span class="rank-title5"><%= link_to topic.title, topic_path(topic) %></span><br>
-              <span class="item-day"><%= l topic.updated_at, format: :short%></span>
-              <span class="item-comment"><%= topic.category.name %><span class="comment"></span><%= topic.posts.count %></span>
+              <%= render partial: "layouts/item", locals: { topic: topic } %>
             <% elsif i == 6 %>
               <span class="rank-title6"><%= link_to topic.title, topic_path(topic) %></span><br>
-              <span class="item-day"><%= l topic.updated_at, format: :short%></span>
-              <span class="item-comment"><%= topic.category.name %><span class="comment"></span><%= topic.posts.count %></span>
+              <%= render partial: "layouts/item", locals: { topic: topic } %>
             <% elsif i == 7 %>
               <span class="rank-title7"><%= link_to topic.title, topic_path(topic) %></span><br>
-              <span class="item-day"><%= l topic.updated_at, format: :short%></span>
-              <span class="item-comment"><%= topic.category.name %><span class="comment"></span><%= topic.posts.count %></span>
+              <%= render partial: "layouts/item", locals: { topic: topic } %>
             <% elsif i == 8 %>
               <span class="rank-title8"><%= link_to topic.title, topic_path(topic) %></span><br>
-              <span class="item-day"><%= l topic.updated_at, format: :short%></span>
-              <span class="item-comment"><%= topic.category.name %><span class="comment"></span><%= topic.posts.count %></span>
+              <%= render partial: "layouts/item", locals: { topic: topic } %>
             <% elsif i == 9 %>
               <span class="rank-title9"><%= link_to topic.title, topic_path(topic) %></span><br>
-              <span class="item-day"><%= l topic.updated_at, format: :short%></span>
-              <span class="item-comment"><%= topic.category.name %><span class="comment"></span><%= topic.posts.count %></span>
+              <%= render partial: "layouts/item", locals: { topic: topic } %>
             <% else %>
               <span class="rank-title10"><%= link_to topic.title, topic_path(topic) %></span><br>
-              <span class="item-day"><%= l topic.updated_at, format: :short%></span>
-              <span class="item-comment"><%= topic.category.name %><span class="comment"></span><%= topic.posts.count %></span>
+              <%= render partial: "layouts/item", locals: { topic: topic } %>
             <% end %>
           </li>
         <% end %>
       </div>
-    </section><%# .search-create-ranking-flame %>
-
-    
+    </section><%# frame %>
+    <div id="page_top"><a href=topics#index></a></div>
 
   </div><%# .main%>
 </main>

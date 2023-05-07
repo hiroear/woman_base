@@ -1,25 +1,147 @@
-<h1><%= @topic.title %><span class="h6"><%= @topic.category.name %></span></h1>
-<%= @topic.name %><br>
-<%= l @topic.created_at, format: :short %><br>
-<%= simple_format(h(@topic.description)) %>
+<main>
+  <div class="sp-only">
+    <%# トピック新規作成モーダル %>
+    <button class="sp-create-topic-button"><a href=""><span class="plus-icon"></span>トピックを作成する</a></button>
+  </div>
 
-<h3>コメントする</h3>
-<%= form_with model: @post, url: topic_posts_path(@topic) do |f| %>
-  <%# posts#createへ POST でとぶ%>
-  <%= f.text_field :name, class: 'form-control w-50', placeholder: 'ニックネーム（20文字以内）', required: 'required' %>
-  <%= f.text_area :content, class: 'form-control w-50', placeholder: 'コメントを入力', required: 'required' %>
-  <%= f.submit "投稿する", class: 'btn btn-primary' %>
-<% end %>
+  <div class="pankuzu">
+    <%= link_to "コミュニティトップ", root_path %> > <%= link_to @topic.category.name, topics_path(category: @topic.category.id, anchor: 'post-anchor') %> > <%= @topic.title %>
+  </div>
 
-<table class="table">
-  <%= link_to '&nbsp;新着順&nbsp;&nbsp;|'.html_safe, topic_path(@topic, latest: 'true') %>
-  <%= link_to '&nbsp;&nbsp;投稿順&nbsp;'.html_safe, topic_path(@topic, old: 'true') %>
+  <section class="frame">
+    <article class="article-topic">
+      <div class="article-title">
+        <h3><%= @topic.title %></h3>
+      </div>
+      <div class="article-parts">
+        <div class="parts-category">
+          <p><%= @topic.category.name %></p>
+        </div>
+        <div class="parts-tag">
+        </div>
+        <div class="parts-time">
+          <p><%= l @topic.created_at, format: :short %></p>
+        </div>
+      </div>
+      <div class="article-detail">
+        <h5><%= @topic.name %></h5>
+        <p><%= simple_format(h(@topic.description)) %></p>
+      </div>
+      <div class="d-flex justify-content-between article-sns">
+        <div class="article-favorite">
+          <button class="favorite-button"><a href="#"><span class="favorite-star-icon"></span>お気に入り</a></button>
+          <%#= link_to '#', class: 'favorite-button' do %><%# end %>
+        </div>
+        <div>
+          <%= link_to "#", class: 'text-decoration-none' do %>
+            <%# <i class='fa fa-twitter fa-3x fa-fw'></i> %>
+            <span class="sp-twitter"></span>
+          <% end %>
+          <%= link_to "#", class: 'text-decoration-none' do %>
+            <span class="sp-instagram"></span>
+          <% end %>
+        </div>
+      </div>
+    </article>
 
-  <% @posts.each.with_index(1) do |post, index|%>
-    <tr>
-      <td><%= index %>.&nbsp;&nbsp;<%= post.name %></td>
-      <td><%= simple_format(h(post.content)) %></td>
-      <td><%= l post.updated_at, format: :short %></td>
-    </tr>
-  <% end %>
-</table>
+    <article class="article-comment">
+      <div class="comment-title">
+        <h3>コメントする</h3>
+      </div>
+      <div class="comment-detail">
+        <%= form_with model: @post, url: topic_posts_path(@topic) do |f| %>
+          <%# posts#createへ POST でとぶ%>
+          <%= f.text_area :content, class: 'form-control w-90 mb-3', placeholder: 'コメントを入力', rows: '5', required: 'required' %>
+          <%= f.text_field :name, class: 'form-control w-90 mb-3', placeholder: 'ニックネーム（20文字以内）', required: 'required' %>
+          <%= f.submit "投稿する", class: 'comment-button' %>
+        <% end %>
+      </div>
+    </article>
+
+    <article class="article-bbs">
+    <div class="bbs-title">
+      <h3>みんなの声</h3>
+      <p>投稿されたコメントを表示しています</p>
+    </div>
+    <div class="d-flex">
+      <%= button_to '新着順', topic_path(@topic), {method: :get, params: {latest: 'true'}, class: 'topic-button my-2 ms-4'} %>
+      <%= button_to '投稿順', topic_path(@topic), {method: :get, params: {old: 'true'}, class: 'topic-button my-2'} %>
+    </div>
+    <div class="bbs-content">
+      <div class="bbs-list1">
+        <% @posts.each.with_index(1) do |post, index|%>
+          <div class="bbs-parts my-1">
+            <div class="parts-number">
+              <p>No.<%= index %></p>
+            </div>
+            <div class="parts-username">
+              <p><%= post.name %></p>
+            </div>
+            <div class="parts-time">
+              <p><%= l post.updated_at, format: :short %></p>
+            </div>
+          </div>
+          <div class="bbs-detail">
+            <%= simple_format(h(post.content)) %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+      <button class="end-comment-button" id="end-comment-button">コメントする</button>
+    </article>
+  
+
+    <div class="sub-create-topic">
+      <div class="create-topic-title">
+        <h3><span class="plus-oval"></span>トピックを作成する</h3>
+      </div>
+      <div class="create-topic-description">
+        <h5>新しいトークテーマを作ろう</h5>
+        <p>美容や健康、仕事に子育てなど、女性に関するあらゆる相談から、テレビや芸能人に関する雑談など何でもOK！</p>
+      </div>
+      <button class="create-topic-button"><a href="">＋ トピックを作成する</a></button>
+    </div>
+
+    <div class="sub-ranking-topic">
+      <div class="ranking-topic-title">
+        <h3><span class="star-icon"></span>人気ランキング</h3>
+      </div>
+      <% @ranktopics.each.with_index(1) do |topic, i|%>
+        <li class="ranking-item">
+          <% if i == 1 %>
+            <%#= i %>
+            <span class="rank-title1"><%= link_to topic.title, topic_path(topic) %></span><br>
+            <%= render partial: "layouts/item", locals: { topic: topic } %>
+          <% elsif i == 2 %>
+            <span class="rank-title2"><%= link_to topic.title, topic_path(topic) %></span><br>
+            <%= render partial: "layouts/item", locals: { topic: topic } %>
+          <% elsif i == 3 %>
+            <span class="rank-title3"><%= link_to topic.title, topic_path(topic) %></span><br>
+            <%= render partial: "layouts/item", locals: { topic: topic } %>
+          <% elsif i == 4 %>
+            <span class="rank-title4"><%= link_to topic.title, topic_path(topic) %></span><br>
+            <%= render partial: "layouts/item", locals: { topic: topic } %>
+          <% elsif i == 5 %>
+            <span class="rank-title5"><%= link_to topic.title, topic_path(topic) %></span><br>
+            <%= render partial: "layouts/item", locals: { topic: topic } %>
+          <% elsif i == 6 %>
+            <span class="rank-title6"><%= link_to topic.title, topic_path(topic) %></span><br>
+            <%= render partial: "layouts/item", locals: { topic: topic } %>
+          <% elsif i == 7 %>
+            <span class="rank-title7"><%= link_to topic.title, topic_path(topic) %></span><br>
+            <%= render partial: "layouts/item", locals: { topic: topic } %>
+          <% elsif i == 8 %>
+            <span class="rank-title8"><%= link_to topic.title, topic_path(topic) %></span><br>
+            <%= render partial: "layouts/item", locals: { topic: topic } %>
+          <% elsif i == 9 %>
+            <span class="rank-title9"><%= link_to topic.title, topic_path(topic) %></span><br>
+            <%= render partial: "layouts/item", locals: { topic: topic } %>
+          <% else %>
+            <span class="rank-title10"><%= link_to topic.title, topic_path(topic) %></span><br>
+            <%= render partial: "layouts/item", locals: { topic: topic } %>
+          <% end %>
+        </li>
+      <% end %>
+    </div><%# .sub-ranking-topic %>
+  </section>
+</main>

@@ -45,7 +45,7 @@ class TopicsController < ApplicationController
         @newtopics = Topic.latest.limit(5)
         @ranktopics = Topic.most_posts.limit(PER)
       else                                            # Topics一覧
-        @topics = Topic.old.page(params[:page]).per(PER)
+        @topics = Topic.latest.page(params[:page]).per(PER)
         @newtopics = Topic.latest.limit(5)
         @ranktopics = Topic.most_posts.limit(PER)
       end
@@ -53,6 +53,7 @@ class TopicsController < ApplicationController
 
     @categories = Category.all
     @topic = Topic.new
+    @tags = ["結婚", "ダイエット", "職場", "美容", "妊娠", "育児", "ドラマ", "コロナ", "料理"]
   end
 
 
@@ -68,6 +69,7 @@ class TopicsController < ApplicationController
     end
 
     @post = @posts.new
+    @ranktopics = Topic.most_posts.limit(PER)
   end
 
 

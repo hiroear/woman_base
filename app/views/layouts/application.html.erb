@@ -19,11 +19,11 @@
 
   <body>
     <header>
-      <p class="headercopy">女性のための情報プラットフォーム</p>
+      <p class="headercopy">女性のための交流掲示板</p>
       <div class="header-logo-menu">
         <div class="logo-area">
           <%= link_to root_path do %>
-            <%= image_tag "/images/logo.jpg", alt: 'WOMAN BASE Logo' %>
+            <%= image_tag "/images/logo.png", alt: 'WOMAN BASE Logo' %>
           <% end %>
         </div>
 
@@ -34,11 +34,10 @@
 
         <nav class="sp-only">
           <button class="header-button"><span></span></button>
-
           <ul class="sp-nav">
             <button class="sp-login-button" type="button"><a href="#">ログイン</a></button>
-            <li id="community-nav" class="header-nav-item"><a href=topics#index>コミュニティ</a></li>
-            <li id="media-nav" class="header-nav-item"><a href="#">メディア</a></li>
+            <li><%= link_to 'コミュニティ', root_path, class: 'header-nav-item', id: 'community-nav' %></li>
+            <li id="media-nav" class="header-nav-item"><a href="#">マガジン</a></li>
             <li id="about-nav" class="header-nav-item"><a href="#">サイトについて</a></li>
             <div class="spnav-sns">
               <%= link_to "#", class: 'text-decoration-none' do %>
@@ -51,16 +50,23 @@
             </div>
             <div class="sp-logo">
               <%= link_to root_path do %>
-                <%= image_tag "/images/logo.jpg", alt: 'WOMAN BASE Logo' %>
+                <%= image_tag "/images/logo.png", alt: 'WOMAN BASE Logo' %>
               <% end %>
             </div>
           </ul>
-
           <button class="sp-register-button" type="button"><a href="#">新規会員登録</a></button>
           <br>
         </nav>
       </div><%# .header-logo-menu%>
     </header>
+
+    <nav class="pc-only">
+      <ul class="pc-nav">
+        <li><%= link_to 'コミュニティ', root_path, class: 'header-nav-item', id: 'community-nav' %></li>
+        <li id="media-nav" class="header-nav-item"><a href="#">マガジン</a></li>
+        <li id="about-nav" class="header-nav-item"><a href="#">サイトについて</a></li>
+      </ul>
+    </nav>
 
     <%= yield %>
 
@@ -79,66 +85,21 @@
       </div>
       <div class="copyright">
         <div class="footer-logo">
-          <a href="index.html"><img src="" alt="Footer Logo"></a>
+          <%= image_tag "/images/logo.png", alt: 'Footer Logo' %>
         </div>
         <p>Copyright © 2023 Woman Base.</p>
       </div>
     </footer>
 
     <script>
-      jQuery(function ($) {
-        $('.header-button').on('click', function () {
-          $('body').toggleClass('open');
+      $('.header-button').on('click', function () {
+        $('body').toggleClass('open');
+      });
+
+      $('#end-comment-button').click(function(){
+        $("html, body").animate({
+          scrollTop: 380
         });
-
-        // $('#search-btn').click(function(){
-        //   $(window).on('load',function(){
-        //       $('html,body').animate({scrollTop: 1000}, 'slow');
-          
-        //   });
-        // });
-
-        // $('#search-btn').click(function(){
-        //   window.onload = function(){
-        //     $('html,body').animate({
-        //       scrollTop : 2000
-        //     })
-        //   }
-        // })
-        
-      <%# // ハンバーガーメニューからのスクロール設定
-      $('#sp-about-nav a').click(function(){
-      $('html,body').animate({
-      scrollTop : 690
-      })
-      $('body').toggleClass('open');
-      })
-
-      $('#sp-map-nav a').click(function(){
-      $('html,body').animate({
-      scrollTop : 1350
-      })
-      $('body').toggleClass('open');
-      })
-      
-      PCトップからのスクロール設定
-      $('#pc-home-nav a').click(function(){
-        $('html,body').animate({
-          scrollTop : 0
-        })
-      })
-      $('#pc-about-nav a').click(function(){
-        $('html,body').animate({
-          scrollTop : 695
-        })
-      })
-    
-      $('#pc-map-nav a').click(function(){
-        $('html,body').animate({
-          scrollTop : 1350
-        })
-    
-      }) %>
       });
     </script>
 

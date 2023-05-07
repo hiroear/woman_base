@@ -1,11 +1,29 @@
 @charset "utf-8";
 
-img {
-  width: 100%;
+* {
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+  /* outline: 2px red solid; */
 }
+body {
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  font-family: Meiryo,sans-serif,'IBM Plex Sans','Noto Sans JP','Open Sans';
+  background: #E6D9DB url(../stylesheets/images/bg_image.png) center top/cover;
+  position: relative;/*footer用*/
+  min-height: 100vh;
+  padding-bottom: 320px;/*footerの高さ*/
+}
+// img {
+//   width: 100%;
+// }
 
 /* ヘッダーのレスポンシブ */
-@media screen and (max-width:767px) {
+@media screen and (max-width:768px) {
   .pc-only {
   display: none;
   }
@@ -13,7 +31,7 @@ img {
   display: block;
   }
 }
-@media screen and (min-width: 768px){
+@media screen and (min-width: 769px){
   .sp-only {
   display: none;
   }
@@ -37,23 +55,38 @@ header {
   justify-content: space-between;
 }
 .logo-area img {
-  width: 200px;
-  margin: 5px 0 0 35px;
+  // width: 200px;
+  // margin: 5px 0 0 35px;
   text-align: left;
+  width: 280px;
+  margin: 15px 0 0 35px;
 }
 .headercopy {
   color: #8a4b71;
   font-size: 0.8rem;
-  margin: 10px ;
-  padding-left: 20px;
+  // margin: 10px ;
+  // padding-left: 20px;
+  margin: 10px 10px -15px 10px ;
+  padding-left: 25px;
+}
+@media screen and (max-width: 768px) {
+  .logo-area img {
+    width: 180px;
+    margin: 15px 0 0 25px;
+  }
+  .headercopy {
+    font-size: 0.6rem;
+    padding: 15px 0 0 15px;
+  }
 }
 .pc-register-button,.pc-login-button {
   padding: 15px;
   font-size: 14px;
   font-weight: bold;
-  margin-right: 20px;
+  // margin-right: 20px;
+  margin: 20px 20px 0 0;
   border: none;
-  border-radius: 20px;
+  border-radius: 15px;
 }
 .pc-register-button a,.pc-login-button a {
   color: #fff;
@@ -71,7 +104,8 @@ header {
 }
 .pc-login-button {
   width: 100px;
-  margin-right: 50px;
+  // margin-right: 50px;
+  margin-right: 35px;
   background: #245372;
   /* background: #35b5d2; */
   /* background-color: #0098cf; */
@@ -213,18 +247,23 @@ body.open .sp-nav {
   width: 30px;
   font: 30px;
 }
+.sp-logo img {
+  margin-top: 20px;
+  width: 250px;
+}
 
 /* モバイル用会員登録ボタンとログインボタン */
 .sp-register-button,.sp-login-button {
   font-weight: bold;
   border: none;
-  border-radius: 26px;
+  border-radius: 15px;
 }
 .sp-register-button {
   padding: 13px;
   width: 110px;
   background-color: #ed4ea0;
-  margin-right: 70px;
+  // margin-right: 70px;
+  margin: 13px 70px 0 0;
 }
 .sp-register-button:hover {
   background-color: #b3045e;
@@ -251,7 +290,8 @@ body.open .sp-nav {
 
 /* メインロゴのスタイル */
 .main-image {
-  margin-top: 230px;
+  // margin-top: 230px;
+  margin-top: 210px;
   text-align: center;
 }
 .main-image  img{
@@ -261,15 +301,18 @@ body.open .sp-nav {
   color: #4D4D4D;
   font-size: 14px;
   text-align: center;
-  margin: 10px auto;
+  // margin: -10px auto;
+  margin: -4px 0 -10px 0;
 }
 
 @media screen and (max-width: 768px) {
   .main-image {
-      margin-top: 180px;
+    // margin-top: 180px;
+    margin-top: 160px;
   }
-  .main-image P {
-      font-size: 12px;
+  .main-image p {
+    padding: 0 6% 0 6%;
+    font-size: 12px;
   }
 }
 
@@ -287,7 +330,7 @@ body.open .sp-nav {
 }
 .newtopic-list li {
   font-size: 16px;
-  padding: 5px;
+  padding: 0;
   border-bottom: 1px solid #c4c2c2;
 }
 .newtopic-title {
@@ -390,14 +433,14 @@ body.open .sp-nav {
 }
 
 /* トピックを探す、トピックを作成する、人気ランキングの枠 */
-.flame {
+.frame {
   position: relative;
 }
-.search-topic,.create-topic,.ranking-topic {
+.search-topic,.create-topic,.ranking-topic,.sub-create-topic,.sub-ranking-topic {
   background: #fff;
   border-radius: 25px;
 }
-.search-topic-title h3,.create-topic-title h3,.ranking-topic h3 {
+.search-topic-title h3,.create-topic-title h3,.ranking-topic h3,.sub-create-topic h3,.sub-ranking-topic h3 {
   font-size: 22px;
   font-weight: bold;
   margin-left: 25px;
@@ -405,7 +448,7 @@ body.open .sp-nav {
   color: #e19f9a;
   white-space: nowrap;
 }
-.search-topic-title h3::before,.create-topic-title h3::before,.ranking-topic h3::before {
+.search-topic-title h3::before,.create-topic-title h3::before,.ranking-topic h3::before,.sub-create-topic h3 ::before,.sub-ranking-topic h3::before {
   content: '';
   display: inline-block;
   width: 12px;
@@ -418,7 +461,7 @@ body.open .sp-nav {
 }
 .search-topic {
   width: 50%;
-  margin: 47px 0 0 6%;
+  margin: 35px 0 0 6%;
 }
 .create-topic {
   position: absolute;
@@ -451,9 +494,9 @@ body.open .sp-nav {
     height: 23px;
   }
   .search-topic {
-    // margin-top: 270px;
+    margin-top: 30px;
     width: 88%;
-    margin: 40px 0 0 6%;
+    // margin: 40px 0 0 6%;
   }
   .create-topic {
     top: -245px;
@@ -472,7 +515,7 @@ button[type="submit"]{
   color: #fff;
   font-weight: bold;
   border: none;
-  border-radius: 20px;
+  border-radius: 15px;
   cursor: pointer;
 }
 button[type="submit"]:hover {
@@ -495,9 +538,9 @@ button[type="submit"]:hover {
   margin-bottom: 25px;
   width: 90%;
   border: none;
-  border-radius: 25px;
+  border-radius: 15px;
 }
-.category-search p,.tag-serch p,.update-title p {
+.category-search p,.tag-serch p{
   padding: 20px 0px 8px 20px;
   color: #4D4D4D;
   font-weight: bold;
@@ -514,6 +557,7 @@ button[type="submit"]:hover {
 .category-button,.tag-button {
   margin-left: 3%;
   padding-bottom: 20px;
+  line-height: 30px;
 }
 .button {
   padding: 5px;
@@ -532,6 +576,7 @@ button[type="submit"]:hover {
 }
 .category-button a:hover, .tag-button a:hover {
   color: #4D4D4D;
+  font-weight: bold;
 }
 @media screen and (max-width: 768px) {
   .category-search p,.tag-serch p,.update-title p {
@@ -581,15 +626,16 @@ button[type="submit"]:hover {
   border-bottom: 1px dotted #a09f9f;
 }
 .topic-button {
-  width: 100px;
-  height: 37px;
+  width: 95px;                /* ←変更 */
+  height: 33px;               /* ←変更 */
   padding: 5px;
   margin: 5px 8px 15px 10px;
   border: none;
-  border-radius: 18px;
+  border-radius: 13px;         /* ←変更 */
   background: #4d83a7;
   color: #fff;
   font-weight: bold;
+  font-size: .87rem;         /* ←追加 */
   /* background: #35b5d2; */
   /* background: #0098cf; */
 }
@@ -614,6 +660,7 @@ button[type="submit"]:hover {
     height: 32px;
     font-size: 13px;
     padding-top: .35rem;
+    border-radius: 12px;
   }
   .topic-button a {
     font-size: 13px;
@@ -643,7 +690,7 @@ button[type="submit"]:hover {
   padding: 18px;
   width: 270px;
   border: none;
-  border-radius: 25px;
+  border-radius: 15px;
   background: #ed4ea0;
   margin: 0 auto 20px;
   color: #fff;
@@ -664,7 +711,7 @@ button[type="submit"]:hover {
   color: #fff;
   font-weight: bold;
   border: none;
-  border-radius: 17px;
+  border-radius: 15px;
   cursor: pointer;
   padding:10px;
 }
@@ -677,7 +724,7 @@ button[type="submit"]:hover {
   color: #fff;
   font-weight: bold;
   border: none;
-  border-radius: 17px;
+  border-radius: 15px;
   cursor: pointer;
   padding:10px;
 }
@@ -710,10 +757,12 @@ button[type="submit"]:hover {
   .inner-create-btn {
     font-size: .8rem;
     padding: 9px 7px;
+    border-radius: 12px;
   }
   .inner-close-btn {
     font-size: .8rem;
     padding: 9px 7px;
+    border-radius: 12px;
   }
 }
 
@@ -725,6 +774,9 @@ button[type="submit"]:hover {
   color: #4D4D4D;
   font-weight: bold;
   text-decoration: none;
+}
+.ranking-topic a:hover {
+  color:rgb(151, 130, 144);
 }
 .ranking-item {
   padding: 0.5em;
@@ -784,6 +836,9 @@ button[type="submit"]:hover {
 
 /* フッターのスタイル */
 footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   background: #fff;
 }
 .footer-sns {
@@ -801,11 +856,17 @@ footer {
 .copyright p {
   background: #f8ecea;
   font-size: 14px;
-  padding-top: 40px;
+  // padding-top: 40px;
+  padding-top: 20px;
+}
+.footer-logo {
+  background: #f8ecea
 }
 .footer-logo img {
+  text-align: center;
   padding-top: 50px;
-  width: 150px;
+  // width: 150px;
+  width: 250px;
 }
 
 /* Pagetopのスタイル */
@@ -854,7 +915,347 @@ footer {
   color: #1d4763;
 }
 
-// fontawesome
+
+/*------------------ここからtopic詳細ページのスタイル --------------*/
+
+/* 右側のカラムの枠設定 */
+.sub-create-topic,.sub-ranking-topic {
+  background: #fff;
+  border-radius: 25px;
+}
+.sub-create-topic h3,.sub-ranking-topic h3 {
+  font-size: 20px;
+  margin-left: 15px;
+  padding-top: 25px;
+}
+.sub-create-topic {
+  position: absolute;
+  top:0;
+  left: 66%;
+  width: 28%;
+}
+.sub-ranking-topic {
+  position: absolute;
+  top: 20%;
+  left: 66%;  
+  width: 28%;
+}
+.sub-create-topic h5 {
+  font-size: 14px;
+}
+.sub-create-topic p {
+  font-size: 12px;
+}
+.sub-create-topic button {
+  width: 210px;
+  font-size: 16px;
+}
+.sub-ranking-topic a {
+  font-weight: bold;
+  color: #4D4D4D;
+}
+
+@media screen and (max-width: 768px) {
+  .sub-create-topic,.sub-ranking-topic {
+      display: none;
+  }
+}
+
+/* パンくずリスト */
+.pankuzu {
+  margin: 230px 0 10px 6%;
+  padding-right: 30px;
+  color: #4D4D4D;
+  font-size: 12px;
+}
+@media screen and (max-width: 768px) {
+  .pankuzu {
+      margin-top: 0;
+  }
+}
+
+/* トピック記事カラム */
+.article-topic {
+  width: 58%;
+  background: #fff;
+  margin-left: 6%;
+  border-radius: 20px;
+  /* position: relative;       ← 削除 */
+  /* お気に入りボタン用 */
+}
+.article-title {
+  padding: 20px 10px 10px 15px;
+  /* white-space: nowrap; */
+}
+.article-title h3 {
+  color: #4D4D4D;
+  font-weight: bold;         /*← 追加 */
+  font-size: 1.17rem;        /*← 追加 */
+}
+/* コメント画像挿入 */
+.article-title h3::before {
+  content: '';
+  background: url(../stylesheets/images/icon_comment.svg) no-repeat;
+  background-size: contain;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 10px 15px 5px 15px;
+  vertical-align: middle;
+}
+
+/* トピック記事カラムとみんなの声カラムのパーツ設定 */
+.article-parts,.bbs-parts {
+  display: flex;
+  justify-content: end;
+  font-size: 12px;
+  color: #a09f9f;
+  border-bottom: 1px solid #1d4763;
+  /* padding-bottom: 5px;         ←削除 */
+}
+.parts-category p,.parts-number p {
+  display: inline-block;
+  padding-right: 3px;
+  margin: 0;                   /*← 追加 */
+}
+.parts-tag p,.parts-username p {
+  display: inline-block;
+  border:1px solid #ed4ea0;
+  border-radius: 3px;
+  width: 140px;                 /*← 追加 */
+  text-align: center;
+  margin: 0;                /*← 追加 */
+}
+.parts-time p {
+  text-align: right;
+  padding: 0 20px 0 20px;
+  margin: 0;                /*← 追加 */
+}
+.article-detail h5 {
+  font-size: .8rem;           /*← 追加 */
+  font-weight: normal;
+  color:#4D4D4D;
+  margin: 20px;
+}
+.article-detail h5::before {
+  content: url(../img/user_icon.svg);
+  display: inline-block;
+  margin: 0 10px 0 10px;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+.article-detail p {
+  color: #4D4D4D;
+  font-size: 16px;
+  line-height: 1.8em;
+  // margin: 10px 5% 35px 5%;
+  margin: 0 5%;           /*← 変更 */
+}
+.article-sns{
+  display: flex;
+  justify-content: end;
+  margin-right: 20px;
+  padding-bottom: 20px;
+}
+.article-sns img {
+  width: 30px;
+  height: 30px;
+  margin-right: 20px;
+}
+.article-favorite {       /* ←削除 */
+  // position: absolute;
+  // top: 80%;               /* ←変更 */
+  // left: 4%;
+}
+.favorite-button {        /* ← クラス名あったので変更 */
+  font-size: 14px;
+  background: #ed4ea0;
+  border: none;
+  border-radius: 12px;
+  padding: 10px;
+  margin: 6px 0 0 28px;        /* ←追加 */
+}
+.favorite-button:hover,.comment-button:hover {         /* ←追加 */
+  color: #fff;
+  background-color: #b3045e;
+}
+.article-favorite a {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+}
+.article-favorite a:hover,.comment-button a:hover {         /* ←追加 */
+  color: #fff;
+  background-color: #b3045e;
+}
+@media screen and (max-width: 768px) {
+  .article-topic {
+    width: 88%;
+  }
+  .article-title {
+    padding-top: 10px;
+  }
+  .article-title h3 {
+    font-size: 18px;
+  }
+  .article-detail p {
+    font-size: 14px;
+  }
+  .article-parts,.bbs-parts {
+    font-size: 10px;
+  }
+  .favorite-button {          /* ←追加 */
+    font-size: 12px;
+    border-radius: 10px;
+    padding: 7px;
+  }
+}
+/* コメント投稿カラム */
+.article-comment {
+  width: 58%;
+  background: #fff;
+  margin-top: 30px;
+  margin-left: 6%;
+  border-radius: 20px;
+}
+.comment-title {
+  padding: 15px;
+  border-bottom: 1px solid #1d4763;
+}
+.comment-title h3 {
+  margin-left: 20px;
+  color: #e19f9a;
+  font-weight: bold;         /*← 追加 */
+  font-size: 1.17rem;        /*← 追加 */
+}
+.comment-detail {
+  margin: 20px 0 10px 20px;
+}
+/* .input-comment {           ← 使わない */
+//   width: 90%;
+//   border-radius: 8px;
+//   font-size: 14px;
+// }
+/*.input_nickname {           ← 使わない */
+//   display: block;
+//   width: 70%;
+//   font-size: 14px;
+//   padding: 5px;
+//   margin: 10px 10px 10px 0;
+// }
+.comment-button {
+  width: 100px;           /*← 変更 */
+  margin-bottom: 15px;
+  font-size: 14px;
+  background: #ed4ea0;
+  border: none;
+  border-radius: 12px;
+  padding: 10px;
+  color: #fff;
+  font-weight: bold;
+}
+@media screen and (max-width: 768px) {
+  .article-comment {
+    width: 88%;
+  }
+  .comment-title h3 {
+    margin-left: 10px;
+    font-size: 18px;
+  }
+  /* .input-comment {           ← 使わない */
+  //   height: 100px;
+  // }
+  /* .comment-button {          ← 1145で設定済み */
+  //   margin-bottom: 15px;
+  // }
+}
+
+/* みんなの声カラム */
+.article-bbs {
+  width: 58%;
+  background: #fff;
+  margin: 30px 0 30px 6%;
+  border-radius: 20px;
+}
+.bbs-title {
+  padding: 17px 15px 1px 15px;         /*← 変更 */
+  border-bottom: 1px solid #1d4763;
+}
+.bbs-title h3 {
+  margin-left: 20px;
+  color: #e19f9a;
+  display: inline-block;
+  font-weight: bold;         /*← 追加 */
+  font-size: 1.17rem;        /*← 追加 */
+}
+.bbs-title p {
+  display: inline-block;
+  font-size: 12px;
+  color: #a09f9f;
+}
+// .update-button {
+//   margin: 10px 0 0 20px;
+// }
+.bbs-parts {
+  border-top: 1px solid #a09f9f;
+  border-bottom: none;
+  padding-top: 5px;
+}
+.parts-username p {
+  border: none;
+  margin: 0;                  /*← 追加 */
+}
+.bbs-detail {
+  padding: 10px;
+  margin: 0 10px 0 10px;
+  color: #4D4D4D;
+  overflow-wrap: break-word;
+  border-top: 1px dotted #a09f9f;
+}
+.end-comment-button {
+  width: 60%;
+  background:#ed4ea0;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  margin: 45px 0 20px 20%;
+  font-size: .9rem;            /* ← ↓ 追加*/
+  color: #fff;
+  font-weight: bold;
+}
+.end-comment-button:hover {         /* ← 追加*/
+  background-color: #b3045e;
+}
+/* .end-comment-button a {      ← 削除*/
+//   color: #fff;
+//   font-weight: bold;
+// }
+
+@media screen and (max-width: 768px) {
+  .article-bbs {
+      width: 88%;
+  }
+  .bbs-detail {
+      font-size: 14px;
+  }
+}
+
+/* スマホ版のみのトップのトピック作成ボタン */
+.sp-create-topic-button {
+  margin: 170px 0% 50px 20%;
+  width: 60%;
+  background:#1d4763;
+  border: none;
+  border-radius: 15px;
+  padding: 12px;
+}
+.sp-create-topic-button a {
+  color: #fff;
+  font-weight: bold;
+}
+
+/*----------------- fontawesome----------------*/
 // .new-folder::before {
 //   content: '\f658';
 //   font-family: Font Awesome\ 5 Free;
@@ -885,7 +1286,6 @@ footer {
   margin: 4px;
   color: rgb(207, 198, 198);
 }
-
 .search-icon::before {
   content: '\f002';
   font-family: Font Awesome\ 5 Free;
@@ -924,6 +1324,14 @@ footer {
   font-family: Font Awesome\ 5 Free;
   font-weight: 400;
   font-size: 25px;
+  margin: 4px;
+  color: rgb(255, 204, 36);
+}
+.favorite-star-icon::before  {
+  content: '\f005';
+  font-family: Font Awesome\ 5 Free;
+  font-weight: 400;
+  font-size: 17px;
   margin: 4px;
   color: rgb(255, 204, 36);
 }
@@ -1011,4 +1419,8 @@ footer {
   background-color: #4d83a7;
   color: #fff;
   height: 27px;
+}
+
+.w-90 {
+  width: 90% !important;
 }
