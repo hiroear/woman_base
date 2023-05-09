@@ -69,6 +69,8 @@ class TopicsController < ApplicationController
     end
 
     @post = @posts.new
+    @categories = Category.all
+    @show_topic_new = Topic.new
     @ranktopics = Topic.most_posts.limit(PER)
   end
 

@@ -41,7 +41,7 @@
           </div>
         </div>
 
-        <div class="tag-serch">
+        <div class="tag-serch" id='post-anchor'>
           <p><span class='tag-icon'></span>タグで探す</p>
           <div class="tag-button">
             <% @tags.each do |tag| %>
@@ -50,7 +50,7 @@
           </div>
         </div>
 
-        <div class="topic-area" id='post-anchor'>
+        <div class="topic-area">
           <div class="topic-button-area">
             <% if @category.present? %>
               <div class="topic-title">
