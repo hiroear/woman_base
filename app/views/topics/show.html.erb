@@ -64,7 +64,7 @@
         <h5><span class="user"></span><%= @topic.name %></h5>
         <p><%= simple_format(h(@topic.description)) %></p>
       </div>
-      <div class="d-flex justify-content-between article-sns">
+      <div class="d-flex justify-content-between article-sns" id="comment-target">
         <div class="article-favorite">
           <button class="favorite-button"><a href="#"><span class="favorite-star-icon"></span>お気に入り</a></button>
           <%#= link_to '#', class: 'favorite-button' do %><%# end %>
@@ -125,7 +125,7 @@
         <% end %>
       </div>
     </div>
-      <button class="end-comment-button" id="end-comment-button">コメントする</button>
+      <button class="end-comment-button">コメントする</button>
     </article>
 
     <div class="sub-create-topic">

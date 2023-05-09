@@ -4,6 +4,7 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
+  # productionモードの時にある程度のクラスがキャッシュ化されて読み込みが早くなる
   config.cache_classes = true
 
   # Eager load code on boot. This eager loads most of Rails and
@@ -28,6 +29,7 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
+  # js, scssをpublic/packs/配下にコンパイルさせる設定
   config.assets.compile = false
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.

@@ -9,6 +9,8 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "bootstrap/dist/js/bootstrap"    //追記
 import "bootstrap/dist/css/bootstrap"   //追記
+import 'bootstrap';                     //追記
+import '../stylesheets/application';    //追記
 
 require('jquery')   //追記
 // require("@rails/ujs").start()

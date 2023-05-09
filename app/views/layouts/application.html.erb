@@ -14,6 +14,8 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%# ↓ turbolinksのエラー回避。だが、キャッシュなどがあっても強制的に再度リロードしてしまうため、表示スピードが遅くなる %>
+    <meta name="turbolinks-visit-control" content="reload">
     <script src="https://kit.fontawesome.com/2d6f3622dc.js" crossorigin="anonymous"></script>
   </head>
 
@@ -96,10 +98,12 @@
         $('body').toggleClass('open');
       });
 
-      $('#end-comment-button').click(function(){
-        $("html, body").animate({
-          scrollTop: 380
-        });
+      $('.end-comment-button').on('click', function () {
+        const target = document.getElementById('comment-target'); // 移動させたい位置の要素を取得
+        //↓ ブラウザの表示領域の左上を基点として、そこからの相対位置を取得
+        //↓ document要素の絶対位置(値は固定) window.pageYOffsetはdocumentの上端からのスクロール量
+        const position = target.getBoundingClientRect().top + window.pageYOffset;
+        scrollTo(0, position);
       });
     </script>
   </body>

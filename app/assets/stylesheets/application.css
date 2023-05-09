@@ -15,7 +15,7 @@
  *= require_self
  */
 
- /* 上記追記  *= require bootstrap/dist/css/bootstrap.min.css */
+ /* 上記追記  require bootstrap/dist/css/bootstrap.min.css */
 
   button,
   input,
