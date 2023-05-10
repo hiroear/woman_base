@@ -39,7 +39,7 @@
           <ul class="sp-nav">
             <button class="sp-login-button" type="button"><a href="#">ログイン</a></button>
             <li><%= link_to 'コミュニティ', root_path, class: 'header-nav-item', id: 'community-nav' %></li>
-            <li id="media-nav" class="header-nav-item"><a href="#">マガジン</a></li>
+            <li><%= link_to 'マガジン', "https://intp.site/1281/wbmagazine", target: '_blank', class: 'header-nav-item', id: 'media-nav' %></li>
             <li id="about-nav" class="header-nav-item"><a href="#">サイトについて</a></li>
             <div class="spnav-sns">
               <%= link_to "#", class: 'text-decoration-none' do %>
@@ -65,7 +65,7 @@
     <nav class="pc-only">
       <ul class="pc-nav">
         <li><%= link_to 'コミュニティ', root_path, class: 'header-nav-item', id: 'community-nav' %></li>
-        <li id="media-nav" class="header-nav-item"><a href="#">マガジン</a></li>
+        <li><%= link_to 'マガジン', "https://intp.site/1281/wbmagazine", target: '_blank', class: 'header-nav-item', id: 'media-nav' %></li>
         <li id="about-nav" class="header-nav-item"><a href="#">サイトについて</a></li>
       </ul>
     </nav>
