@@ -15,7 +15,7 @@ body {
   background: #E6D9DB url(../stylesheets/images/bg_image.png) center top/cover;
   position: relative;/*footer用*/
   min-height: 100vh;
-  padding-bottom: 455px;/*footerの高さ*/
+  padding-bottom: 465px;/*footerの高さ*/
 }
 // img {
 //   width: 100%;
@@ -469,7 +469,7 @@ body.open .sp-nav {
   // padding-top: 35px;
   color: #e19f9a;
 }
-@media screen and (max-width: 830px) {
+@media screen and (max-width: 850px) {
   .create-topic-title h3 {
     font-size: 18px;
   }
@@ -545,7 +545,7 @@ button[type="submit"]:hover {
 //   background-color: #ed4ea0;
 // }
 .category-button,.tag-button {
-  margin-left: 3%;
+  margin: 0 3%;               /*変更*/
   padding-bottom: 20px;
   line-height: 30px;
 }
@@ -579,7 +579,6 @@ button[type="submit"]:hover {
   }
   .category-button a,.tag-button a {
     font-size: 12px;
-    white-space: nowrap;         /*追加*/
   }
 }
 
@@ -1000,7 +999,7 @@ footer {
     top: 31%;
   }
 }
-@media screen and (max-width: 830px) {   /*追加*/
+@media screen and (max-width: 850px) {   /*追加*/
   .sub-create-topic h3 {
     font-size: 1rem;
     margin-left: 7px;
