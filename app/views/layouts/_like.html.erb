@@ -1,0 +1,10 @@
+<% if @alreadylike || @liked %>
+  <%= link_to topic_like_path(@topic.likes.find_by(ip: request.remote_ip), topic_id: @topic), method: :delete, class: 'header-favorite', remote: true do %>
+    <span class="like-heart-true"></span>
+  <% end %>
+
+<% else %>
+  <%= link_to topic_likes_path(topic_id: @topic), method: :post, class: 'header-favorite', remote: true do %>
+    <span class="like-heart-false"></span>
+  <% end %>
+<% end %>

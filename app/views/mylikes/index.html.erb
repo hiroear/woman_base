@@ -1,0 +1,26 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="search-topic">
+  <div class="search-topic-title">
+    <h3>お気に入りトピック一覧</h3>
+  </div>
+  <div class="input-search">
+    <%= form_with url: mylikes_path, method: :get, local: true, class: 'd-flex mt-2 mb-3 mx-3 p-4' do |f| %>
+      <%= f.text_field :keyword, class: "form-control w-75 me-2", placeholder: 'キーワードを入力' %>
+      <button type="submit" class="text-nowrap"><span class="search-mini"></span>検索</button>
+    <% end %>
+  </div>
+  <div class="topic-area">
+    <% @topics.each do |topic|%>
+      <li class="topic-item">
+        <span class="item-title"><%= link_to topic.title, topic_path(topic) %></span>
+        <%= render partial: "layouts/item", locals: { topic: topic } %>
+      </li>
+    <% end %>
+    <%= paginate @topics, theme: 'bootstrap-5', pagination_class: "pagination-sm flex-wrap" %>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+document.querySelector("#like-of-<%= @topic.id %>").innerHTML = "<%= j(render('/layouts/like', topic: @topic)) %>";
+
+<!--$("#like-of-<%= @topic.id %>").html("<%= j(render partial: '/layouts/like', locals: { topic: @topic }) %>");-->
+
+<%# j(エイリアス) : escape_javascriptの略。 改行やエスケープ処理をして、renderで取得した htmlを JavaScript にとって適切な書き方に変換する %>

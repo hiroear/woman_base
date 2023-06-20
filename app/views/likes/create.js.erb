@@ -1,0 +1,3 @@
+document.querySelector("#like-of-<%= @topic.id %>").innerHTML = "<%= j(render('/layouts/like', topic: @topic)) %>";
+
+<!--$("#like-of-<%= @topic.id %>").html("<%= j(render partial: '/layouts/like', locals: { topic: @topic }) %>");-->

@@ -1,7 +1,7 @@
 <main>
   <%# モバイル用 トピ新規作成モーダル %>
   <div class="sp-only">
-    <%= form_with model: @show_topic_new, url: topics_path(anchor: 'post-anchor'), method: :post, local: true do |f| %>
+    <%= form_with model: @show_topic, url: topics_path(anchor: 'post-anchor'), method: :post, local: true do |f| %>
       <button type="button" class="sp-create-topic-button" data-bs-toggle="modal" data-bs-target="#spNewFormModal"><span class="plus-icon"></span>トピックを作成する</button>
       <div class="modal fade" id="spNewFormModal" tabindex="-1" aria-labelledby="spNewFormModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -25,198 +25,202 @@
               <div class="mb-3">
                 <%= f.label :category_id, "カテゴリを選択", class: "col-form-label me-1" %><span class="badge bg-danger">必須</span>
                 <%= f.select :category_id, @categories.map { |category| [category.name, category.id] }, {}, class: 'form-select' %>
-                <%#= f.collection_select(:category_id, @categories, :id, :name) でもOK
-                <select name="topic[category_id]" id="topic_category_id" class="form-select">
-                  <option value="1">ファッション〜</option><option value="2">ニュース</option><option value="3">健康</option>...
-                </select> %>
+                <%#= f.collection_select(:category_id, @categories, :id, :name) でもOK %>
               </div>
-            </div><!--.modal-body-->
+            </div><%# .modal-body %>
             <div class="modal-footer me-1">
               <button type="button" class="inner-close-btn" data-bs-dismiss="modal">閉じる</button>
               <%= f.submit '作成する', class: 'inner-create-btn' %>
             </div>
           </div>
-        </div><!--.modal-dialog-->
+        </div><%# .modal-dialog %>
       </div>
     <% end %>
-  </div><!-- .sp-only -->
+  </div><%# .sp-only %>
 
   <div class="pankuzu">
     <%= link_to "コミュニティトップ", root_path, class: 'pankuzu-a' %> > <%= link_to @topic.category.name, topics_path(category: @topic.category.id, anchor: 'post-anchor'), class: 'pankuzu-a' %> > <span class="pankuzu-a"><%= @topic.title %></span>
   </div>
 
   <section class="frame">
-    <article class="article-topic">
-      <div class="article-title">
-        <h3><%= @topic.title %></h3>
-      </div>
-      <div class="article-parts">
-        <div class="parts-category mb-1">
-          <p><%= @topic.category.name %></p>
+    <div class="sub-left">
+      <article class="article-topic">
+        <div class="article-title">
+          <h3><%= @topic.title %></h3>
         </div>
-        <div class="parts-tag">
-        </div>
-        <div class="parts-time">
-          <p><%= l @topic.created_at, format: :short %></p>
-        </div>
-      </div>
-      <div class="article-detail">
-        <h5><span class="user"></span><%= @topic.name %></h5>
-        <p><%= simple_format(h(@topic.description)) %></p>
-      </div>
-      <div class="d-flex justify-content-between article-sns" id="comment-target">
-        <div class="article-favorite">
-          <button class="favorite-button"><a href="#"><span class="favorite-star-icon"></span>お気に入り</a></button>
-          <%#= link_to '#', class: 'favorite-button' do %><%# end %>
-        </div>
-        <div>
-          <%= link_to "#", class: 'text-decoration-none' do %>
-            <%# <i class='fa fa-twitter fa-3x fa-fw'></i> %>
-            <span class="sp-twitter"></span>
-          <% end %>
-          <%= link_to "#", class: 'text-decoration-none' do %>
-            <span class="sp-instagram"></span>
-          <% end %>
-        </div>
-      </div>
-    </article>
-
-    <article class="article-comment">
-      <div class="comment-title">
-        <h3>コメントする</h3>
-      </div>
-      <div class="comment-detail">
-        <%= form_with model: @post, url: topic_posts_path(@topic, anchor: 'show-anchor'), local: true do |f| %>
-          <%# posts#createへ POST でとぶ%>
-          <%= f.text_area :content, class: 'form-control w-90 mb-3', placeholder: 'コメントを入力', rows: '5', required: 'required' %>
-          <div id="show-anchor"></div>
-          <%= f.text_field :name, class: 'form-control w-90 mb-3', placeholder: 'ニックネーム（20文字以内）', required: 'required' %>
-          <%= f.submit "投稿する", class: 'comment-button' %>
-        <% end %>
-      </div>
-    </article>
-
-    <article class="article-bbs">
-    <div class="bbs-title">
-      <h3>みんなの声</h3>
-      <p>投稿されたコメントを表示しています</p>
-    </div>
-    <div class="d-flex">
-      <%= button_to '新着順', topic_path(@topic, anchor: 'show-anchor'), {method: :get, params: {latest: 'true'}, class: 'topic-button my-2 ms-4'} %>
-      <%= button_to '投稿順', topic_path(@topic, anchor: 'show-anchor'), {method: :get, params: {old: 'true'}, class: 'topic-button my-2'} %>
-    </div>
-    <div class="bbs-content">
-      <div class="bbs-list1">
-        <% @posts.each.with_index(1) do |post, index|%>
-          <div class="bbs-parts my-1">
-            <div class="parts-number">
-              <p>No.<%= index %></p>
-            </div>
-            <div class="parts-username">
-              <p><%= post.name %></p>
-            </div>
-            <div class="parts-time">
-              <p><%= l post.updated_at, format: :short %></p>
-            </div>
+        <div class="article-parts">
+          <div class="parts-category mb-1">
+            <p><%= @topic.category.name %></p>
           </div>
-          <div class="bbs-detail">
-            <%= simple_format(h(post.content)) %>
+          <div class="parts-tag">
           </div>
-        <% end %>
-      </div>
-    </div>
-      <button class="end-comment-button">コメントする</button>
-    </article>
+          <div class="parts-time">
+            <p><%= l @topic.created_at, format: :short %></p>
+          </div>
+        </div>
+        <div class="article-detail">
+          <h5><span class="user"></span><%= @topic.name %></h5>
+          <p><%= simple_format(h(@topic.description)) %></p>
+        </div>
+        <div class="article-sns" id="comment-target">
+          <%# いいね %>
+          <div id='like-of-<%= @topic.id %>'>
+            <%= render 'layouts/like', locals: { topic: @topic } %>
+          </div>
 
-    <div class="sub-create-topic">
-      <div class="sub-create-topic-title">
-        <h3><span class="plus-oval"></span>トピックを作成する</h3>
+          <div>
+            <%= link_to "#", class: 'text-decoration-none' do %>
+              <%# <i class='fa fa-twitter fa-3x fa-fw'></i> %>
+              <span class="sp-twitter"></span>
+            <% end %>
+            <%= link_to "#", class: 'text-decoration-none' do %>
+              <span class="sp-instagram"></span>
+            <% end %>
+          </div>
+        </div>
+      </article>
+
+      <article class="article-comment">
+        <div class="comment-title">
+          <h3>コメントする</h3>
+        </div>
+        <div class="comment-detail">
+          <%= form_with model: @post, url: topic_posts_path(@topic, anchor: 'show-anchor'), local: true do |f| %>
+            <%# posts#createへ POST でとぶ%>
+            <%= f.text_area :content, class: 'form-control w-90 mb-3', placeholder: 'コメントを入力', rows: '5', required: 'required' %>
+            <div id="show-anchor"></div>
+            <%= f.text_field :name, class: 'form-control w-90 mb-3', placeholder: 'ニックネーム（20文字以内）', required: 'required' %>
+            <%= f.submit "投稿する", class: 'comment-button' %>
+          <% end %>
+        </div>
+      </article>
+
+      <article class="article-bbs">
+      <div class="bbs-title">
+        <h3>みんなの声</h3>
+        <p>投稿されたコメントを表示しています</p>
       </div>
-      <div class="sub-create-topic-description">
-        <h5>新しいトークテーマを作ろう</h5>
-        <p>美容や健康、仕事に子育てなど、女性に関するあらゆる相談から、テレビや芸能人に関する雑談など何でもOK！</p>
+      <div class="d-flex">
+        <%= button_to '新着順', topic_path(@topic, anchor: 'show-anchor'), {method: :get, params: {latest: 'true'}, class: 'topic-button my-2 ms-4'} %>
+        <%= button_to '投稿順', topic_path(@topic, anchor: 'show-anchor'), {method: :get, params: {old: 'true'}, class: 'topic-button my-2'} %>
       </div>
-      <%# トピック新規作成モーダル %>
-      <%= form_with model: @show_topic_new, url: topics_path(anchor: 'post-anchor'), method: :post, local: true do |f| %>
-        <button type="button" class="sub-create-topic-button w-75" data-bs-toggle="modal" data-bs-target="#subNewFormModal"><span class="plus-icon"></span>トピックを作成する</button>
-        <div class="modal fade" id="subNewFormModal" tabindex="-1" aria-labelledby="subNewFormModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title fw-bold create-topic-title" id="subNewFormModalLabel"><span class="pen-icon"></span>トピックを作成する</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="bbs-content">
+        <div class="bbs-list1">
+          <% @posts.each.with_index(1) do |post, index|%>
+            <div class="bbs-parts my-1">
+              <div class="parts-number">
+                <p>No.<%= index %></p>
               </div>
-              <div class="modal-body">
-                <div class="mb-3">
-                  <%= f.label :name, "ニックネーム", class: "col-form-label me-1" %><span class="badge bg-danger">必須</span>
-                  <%= f.text_field :name, class: "form-control", placeholder: '20文字以内', required: 'required' %><%#
-                  <label for="topic_name" class="col-form-label">商品名</label>
-                  <input type="text" class="form-control" name="topic[name]" id="topic_name"> %>
-                </div>
-                <div class="mb-3">
-                  <%= f.label "内容の入力", class: "col-form-label me-1 mb-1" %><span class="badge bg-danger">必須</span>
-                  <%= f.text_field :title, class: "form-control mb-1", placeholder: 'タイトルを入力 (48文字以内)', required: 'required' %>
-                  <%= f.text_area :description, class: "form-control", rows: 6, placeholder: '内容を入力', required: 'required' %>
-                </div>
-                <div class="mb-3">
-                  <%= f.label :category_id, "カテゴリを選択", class: "col-form-label me-1" %><span class="badge bg-danger">必須</span>
-                  <%= f.select :category_id, @categories.map { |category| [category.name, category.id] }, {}, class: 'form-select' %>
-                  <%#= f.collection_select(:category_id, @categories, :id, :name) でもOK
-                  <select name="topic[category_id]" id="topic_category_id" class="form-select">
-                    <option value="1">ファッション〜</option><option value="2">ニュース</option><option value="3">健康</option>...
-                  </select> %>
-                </div>
-              </div><!--.modal-body-->
-              <div class="modal-footer me-1">
-                <button type="button" class="inner-close-btn" data-bs-dismiss="modal">閉じる</button>
-                <%= f.submit '作成する', class: 'inner-create-btn' %>
+              <div class="parts-username">
+                <p><%= post.name %></p>
+              </div>
+              <div class="parts-time">
+                <p><%= l post.updated_at, format: :short %></p>
               </div>
             </div>
-          </div><!--.modal-dialog-->
-        </div>
-      <% end %>
-    </div><!-- .sub-create-topic -->
-
-    <div class="sub-ranking-topic">
-      <div class="ranking-topic-title">
-        <h3><span class="star-icon"></span>人気ランキング</h3>
-      </div>
-      <% @ranktopics.each.with_index(1) do |topic, i|%>
-        <li class="ranking-item">
-          <% if i == 1 %>
-            <%#= i %>
-            <span class="rank-title1"><%= link_to topic.title, topic_path(topic) %></span><br>
-            <%= render partial: "layouts/item", locals: { topic: topic } %>
-          <% elsif i == 2 %>
-            <span class="rank-title2"><%= link_to topic.title, topic_path(topic) %></span><br>
-            <%= render partial: "layouts/item", locals: { topic: topic } %>
-          <% elsif i == 3 %>
-            <span class="rank-title3"><%= link_to topic.title, topic_path(topic) %></span><br>
-            <%= render partial: "layouts/item", locals: { topic: topic } %>
-          <% elsif i == 4 %>
-            <span class="rank-title4"><%= link_to topic.title, topic_path(topic) %></span><br>
-            <%= render partial: "layouts/item", locals: { topic: topic } %>
-          <% elsif i == 5 %>
-            <span class="rank-title5"><%= link_to topic.title, topic_path(topic) %></span><br>
-            <%= render partial: "layouts/item", locals: { topic: topic } %>
-          <% elsif i == 6 %>
-            <span class="rank-title6"><%= link_to topic.title, topic_path(topic) %></span><br>
-            <%= render partial: "layouts/item", locals: { topic: topic } %>
-          <% elsif i == 7 %>
-            <span class="rank-title7"><%= link_to topic.title, topic_path(topic) %></span><br>
-            <%= render partial: "layouts/item", locals: { topic: topic } %>
-          <% elsif i == 8 %>
-            <span class="rank-title8"><%= link_to topic.title, topic_path(topic) %></span><br>
-            <%= render partial: "layouts/item", locals: { topic: topic } %>
-          <% elsif i == 9 %>
-            <span class="rank-title9"><%= link_to topic.title, topic_path(topic) %></span><br>
-            <%= render partial: "layouts/item", locals: { topic: topic } %>
-          <% else %>
-            <span class="rank-title10"><%= link_to topic.title, topic_path(topic) %></span><br>
-            <%= render partial: "layouts/item", locals: { topic: topic } %>
+            <div class="bbs-detail">
+              <%= simple_format(h(post.content)) %>
+            </div>
           <% end %>
-        </li>
-      <% end %>
-    </div><%# .sub-ranking-topic %>
+        </div>
+      </div>
+        <button class="end-comment-button">コメントする</button>
+      </article>
+    </div><%# .left %>
+
+    <div class="sub-right">
+      <div class="sub-create-topic">
+        <div class="sub-create-topic-title">
+          <h3><span class="plus-oval"></span>トピックを作成する</h3>
+        </div>
+        <div class="sub-create-topic-description">
+          <h5>新しいトークテーマを作ろう</h5>
+          <p>美容や健康、仕事に子育てなど、女性に関するあらゆる相談から、テレビや芸能人に関する雑談など何でもOK！</p>
+        </div>
+        <%# トピック新規作成モーダル %>
+        <%= form_with model: @show_topic, url: topics_path(anchor: 'post-anchor'), method: :post, local: true do |f| %>
+          <button type="button" class="sub-create-topic-button w-75" data-bs-toggle="modal" data-bs-target="#subNewFormModal"><span class="plus-icon"></span>トピックを作成する</button>
+          <div class="modal fade" id="subNewFormModal" tabindex="-1" aria-labelledby="subNewFormModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title fw-bold create-topic-title" id="subNewFormModalLabel"><span class="pen-icon"></span>トピックを作成する</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="mb-3">
+                    <%= f.label :name, "ニックネーム", class: "col-form-label me-1" %><span class="badge bg-danger">必須</span>
+                    <%= f.text_field :name, class: "form-control", placeholder: '20文字以内', required: 'required' %><%#
+                    <label for="topic_name" class="col-form-label">商品名</label>
+                    <input type="text" class="form-control" name="topic[name]" id="topic_name"> %>
+                  </div>
+                  <div class="mb-3">
+                    <%= f.label "内容の入力", class: "col-form-label me-1 mb-1" %><span class="badge bg-danger">必須</span>
+                    <%= f.text_field :title, class: "form-control mb-1", placeholder: 'タイトルを入力 (48文字以内)', required: 'required' %>
+                    <%= f.text_area :description, class: "form-control", rows: 6, placeholder: '内容を入力', required: 'required' %>
+                  </div>
+                  <div class="mb-3">
+                    <%= f.label :category_id, "カテゴリを選択", class: "col-form-label me-1" %><span class="badge bg-danger">必須</span>
+                    <%= f.select :category_id, @categories.map { |category| [category.name, category.id] }, {}, class: 'form-select' %>
+                    <%#= f.collection_select(:category_id, @categories, :id, :name) でもOK
+                    <select name="topic[category_id]" id="topic_category_id" class="form-select">
+                      <option value="1">ファッション〜</option><option value="2">ニュース</option><option value="3">健康</option>...
+                    </select> %>
+                  </div>
+                </div><%# .modal-body %>
+                <div class="modal-footer me-1">
+                  <button type="button" class="inner-close-btn" data-bs-dismiss="modal">閉じる</button>
+                  <%= f.submit '作成する', class: 'inner-create-btn' %>
+                </div>
+              </div>
+            </div><%# .modal-dialog %>
+          </div>
+        <% end %>
+      </div><%# .sub-create-topic %>
+
+      <div class="sub-ranking-topic mt-4">
+        <div class="ranking-topic-title">
+          <h3><span class="star-icon"></span>人気ランキング</h3>
+        </div>
+        <% @ranktopics.each.with_index(1) do |topic, i|%>
+          <li class="ranking-item">
+            <% if i == 1 %>
+              <%#= i %>
+              <span class="rank-title1"><%= link_to topic.title, topic_path(topic) %></span><br>
+              <%= render partial: "layouts/item", locals: { topic: topic } %>
+            <% elsif i == 2 %>
+              <span class="rank-title2"><%= link_to topic.title, topic_path(topic) %></span><br>
+              <%= render partial: "layouts/item", locals: { topic: topic } %>
+            <% elsif i == 3 %>
+              <span class="rank-title3"><%= link_to topic.title, topic_path(topic) %></span><br>
+              <%= render partial: "layouts/item", locals: { topic: topic } %>
+            <% elsif i == 4 %>
+              <span class="rank-title4"><%= link_to topic.title, topic_path(topic) %></span><br>
+              <%= render partial: "layouts/item", locals: { topic: topic } %>
+            <% elsif i == 5 %>
+              <span class="rank-title5"><%= link_to topic.title, topic_path(topic) %></span><br>
+              <%= render partial: "layouts/item", locals: { topic: topic } %>
+            <% elsif i == 6 %>
+              <span class="rank-title6"><%= link_to topic.title, topic_path(topic) %></span><br>
+              <%= render partial: "layouts/item", locals: { topic: topic } %>
+            <% elsif i == 7 %>
+              <span class="rank-title7"><%= link_to topic.title, topic_path(topic) %></span><br>
+              <%= render partial: "layouts/item", locals: { topic: topic } %>
+            <% elsif i == 8 %>
+              <span class="rank-title8"><%= link_to topic.title, topic_path(topic) %></span><br>
+              <%= render partial: "layouts/item", locals: { topic: topic } %>
+            <% elsif i == 9 %>
+              <span class="rank-title9"><%= link_to topic.title, topic_path(topic) %></span><br>
+              <%= render partial: "layouts/item", locals: { topic: topic } %>
+            <% else %>
+              <span class="rank-title10"><%= link_to topic.title, topic_path(topic) %></span><br>
+              <%= render partial: "layouts/item", locals: { topic: topic } %>
+            <% end %>
+          </li>
+        <% end %>
+      </div><%# .sub-ranking-topic %>
+    </div><%# .right %>
   </section>
 </main>
+
+<%= javascript_pack_tag 'topics' %>  <%# ← 個別のページで packs/topics.jsを適用 %>

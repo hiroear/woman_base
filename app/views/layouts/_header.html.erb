@@ -1,0 +1,65 @@
+<header>
+  <p class="headercopy">女性のための交流掲示板</p>
+  <div class="header-logo-menu">
+    <div class="logo-area">
+      <%= link_to root_path do %>
+        <%= image_tag "/images/logo.png", alt: 'WOMAN BASE Logo' %>
+      <% end %>
+    </div>
+    <div class="d-flex">
+      <%= link_to mylikes_path, class: 'pc-only header-favorite' do %>
+        <span class="header-heart"></span>お気に入り
+      <% end %>
+      <div class="pc-only">
+        <%= form_with url: topics_path(anchor: 'post-anchor'), method: :get, local: true, class: 'header-search' do |f| %>
+          <%= f.text_field :keyword, class: "form-control", placeholder: 'キーワードを入力' %>
+          <button type="submit"><span class="search-mini"></span>検索</button>
+        <% end %>
+      </div>
+    </div>
+
+    <nav class="sp-only">
+      <%= link_to mylikes_path, class: 'header-favorite' do %>
+        <span class="header-heart"></span>
+      <% end %>
+      <button class="header-button"><span></span></button>
+      <ul class="sp-nav">
+        <%= form_with url: topics_path(anchor: 'post-anchor'), method: :get, local: true, class: 'd-flex mb-5' do |f| %>
+          <%= f.text_field :keyword, class: "form-control w-75 me-2", placeholder: 'キーワードを入力' %>
+          <button type="submit" class="text-nowrap"><span class="search-mini"></span>検索</button>
+        <% end %>
+
+        <%# <button class="sp-login-button" type="button"><a href="#">ログイン</a></button> %>
+        <li><%= link_to 'コミュニティ', root_path, class: 'header-nav-item', id: 'community-nav' %></li>
+        <li><%= link_to 'マガジン', "https://intp.site/1281/wbmagazine", target: '_blank', class: 'header-nav-item', id: 'media-nav' %></li>
+        <li id="about-nav" class="header-nav-item"><a href="#">サイトについて</a></li>
+
+        <div class="spnav-sns">
+          <%= link_to "#", class: 'text-decoration-none' do %>
+            <%# <i class='fa fa-twitter fa-3x fa-fw'></i> %>
+            <span class="sp-twitter"></span>
+          <% end %>
+          <%= link_to "#", class: 'text-decoration-none' do %>
+            <span class="sp-instagram"></span>
+          <% end %>
+        </div>
+        
+        <div class="sp-logo">
+          <%= link_to root_path do %>
+            <%= image_tag "/images/logo.png", alt: 'WOMAN BASE Logo' %>
+          <% end %>
+        </div>
+      </ul>
+      <%# <button class="sp-register-button" type="button"><a href="#">新規会員登録</a></button> %>
+      <br>
+    </nav>
+  </div><%# .header-logo-menu%>
+</header>
+
+<nav class="pc-only">
+  <ul class="pc-nav">
+    <li><%= link_to 'コミュニティ', root_path, class: 'header-nav-item', id: 'community-nav' %></li>
+    <li><%= link_to 'マガジン', "https://intp.site/1281/wbmagazine", target: '_blank', class: 'header-nav-item', id: 'media-nav' %></li>
+    <li><%= link_to 'サイトについて', "#", class: 'header-nav-item', id: 'about-nav' %></li>
+  </ul>
+</nav>
