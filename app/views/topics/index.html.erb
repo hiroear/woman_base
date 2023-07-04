@@ -1,4 +1,4 @@
-<main>
+<main class='index_main'>
   <div class="main-image">
     <%= image_tag "/images/logo_community.png", alt: 'main Logo' %>
     <p>全国の女性たちのリアルな暮らしを応援する交流掲示板です。<br>仕事や恋愛、家事に子育て、美容や健康の悩みまで、幅広い話題で盛り上がれます！ <br>合間の息抜きにぜひご利用ください。</p>
@@ -23,68 +23,36 @@
       </div>
 
       <div class="search-topic">
-        <div class="search-topic-title">
-          <h3><span class="search-icon"></span>トピックを探す</h3>
-        </div>
-        <div class="input-search">
-          <%= form_with url: topics_path(anchor: 'post-anchor'), method: :get, local: true, class: 'd-flex mt-2 mb-3 mx-3 p-4' do |f| %>
-            <%= f.text_field :keyword, class: "form-control w-75 me-2", placeholder: 'キーワードを入力' %>
-            <button type="submit" class="text-nowrap"><span class="search-mini"></span>検索</button>
+        <%= react_component('react_topics', {topics: @topics, categories: @categories, posts: @posts, topicOld: @topic_old}) %>
+        <%#= tag.div id: 'react_topics', data: {react_props: {topics: @topics, categories: @categories, posts: @posts, topicOld: @topic_old}} %>
+
+        <div class="topic-area" id="topic_area">
+          <% if @category.present? %>
+            <div class="topic-title">
+              <h3><%= @category.name %>の投稿&nbsp;<%= @topics.size %>件</h3>
+            </div>
+            <div class="d-flex mt-3">
+              <%= button_to '新着順', topics_path(anchor: 'post-anchor'), {method: :get, params: {category: @category.id, category_latest: 'true'}, class: 'topic-button' } %>
+              <%= button_to '投稿順', topics_path(anchor: 'post-anchor'), {method: :get, params: {category: @category.id, category_old: 'true'}, class: 'topic-button' } %>
+            </div>
+          <% elsif @keyword.present? %>
+            <div class="topic-title">
+              <h3><i class="fa fa-hashtag fa-fw"></i><%= @keyword %>の投稿&nbsp;&nbsp;<%= @topics.size %>件</h3>
+            </div>
+            <div class="d-flex mt-3">
+              <%= button_to '新着順', topics_path(anchor: 'post-anchor'), {method: :get, params: {keyword: @keyword, keyword_latest: 'true'}, class: 'topic-button' } %>
+              <%= button_to '投稿順', topics_path(anchor: 'post-anchor'), {method: :get, params: {keyword: @keyword, keyword_old: 'true'}, class: 'topic-button' } %>
+            </div>
           <% end %>
-        </div>
 
-        <div class="category-search">
-          <p><span class='category-icon'></span>カテゴリーで探す</p>
-          <div class="category-button">
-            <% @categories.each do |category| %>
-              <%= link_to category.name, topics_path(category: category.id, anchor: 'post-anchor'),  class: 'button' %>
-            <% end %>
-          </div>
-        </div>
-
-        <div class="tag-serch" id='post-anchor'>
-          <p><span class='tag-icon'></span>タグで探す</p>
-          <div class="tag-button">
-            <% @tags.each do |tag| %>
-              <%= link_to "##{tag}", topics_path(keyword: tag, anchor: 'post-anchor'),  class: 'button' %>
-            <% end %>
-          </div>
-        </div>
-
-        <div class="topic-area">
-          <div class="topic-button-area">
-            <% if @category.present? %>
-              <div class="topic-title">
-                <h3><%= @category.name %>の投稿&nbsp;<%= @topics.size %>件</h3>
-              </div>
-              <div class="d-flex">
-                <%= button_to '新着順', topics_path(anchor: 'post-anchor'), {method: :get, params: {category: @category.id, category_latest: 'true'}, class: 'topic-button' } %>
-                <%= button_to '投稿順', topics_path(anchor: 'post-anchor'), {method: :get, params: {category: @category.id, category_old: 'true'}, class: 'topic-button' } %>
-              </div>
-            <% elsif @keyword.present? %>
-              <div class="topic-title">
-                <h3><i class="fa fa-hashtag fa-fw"></i><%= @keyword %>の投稿&nbsp;&nbsp;<%= @topics.size %>件</h3>
-              </div>
-              <div class="d-flex">
-                <%= button_to '新着順', topics_path(anchor: 'post-anchor'), {method: :get, params: {keyword: @keyword, keyword_latest: 'true'}, class: 'topic-button' } %>
-                <%= button_to '投稿順', topics_path(anchor: 'post-anchor'), {method: :get, params: {keyword: @keyword, keyword_old: 'true'}, class: 'topic-button' } %>
-              </div>
-            <% else %>
-              <div class="d-flex ms-2">
-                <%= button_to '新着順', topics_path(anchor: 'post-anchor'), {method: :get, params: {recent: 'true'}, class: 'topic-button'} %>
-                <%= button_to '投稿順', topics_path(anchor: 'post-anchor'), {method: :get, params: {ascend: 'true'}, class: 'topic-button'}  %>
-              </div>
-            <% end %>
-
-            <%# トピック一覧 %>
-            <% @topics.each do |topic|%>
-              <li class="topic-item">
-                <span class="item-title"><%= link_to topic.title, topic_path(topic) %></span>
-                <%= render partial: "layouts/item", locals: { topic: topic } %>
-              </li>
-            <% end %>
-            <%= paginate @topics, theme: 'bootstrap-5', pagination_class: "pagination-sm flex-wrap" %>
-          </div><%# .topic-button-area%>
+          <%# トピック一覧 %>
+          <% @topics.each do |topic|%>
+            <li class="topic-item">
+              <span class="item-title"><%= link_to topic.title, topic_path(topic) %></span>
+              <%= render partial: "layouts/item", locals: { topic: topic } %>
+            </li>
+          <% end %>
+          <%#= paginate @topics, theme: 'bootstrap-5', pagination_class: "pagination-sm flex-wrap" %>
         </div><%# .topic-area %>
       </div><%# .search-topic %>
     </div><%# .left %>
@@ -108,82 +76,47 @@
                   <h5 class="modal-title fw-bold create-topic-title" id="newFormModalLabel"><span class="pen-icon"></span>トピックを作成する</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                  <div class="mb-3">
-                    <%= f.label :name, "ニックネーム", class: "col-form-label me-1" %><span class="badge bg-danger">必須</span>
-                    <%= f.text_field :name, class: "form-control", placeholder: '20文字以内', required: 'required' %><%#
-                    <label for="topic_name" class="col-form-label">商品名</label>
-                    <input type="text" class="form-control" name="topic[name]" id="topic_name"> %>
-                  </div>
-                  <div class="mb-3">
-                    <%= f.label "内容の入力", class: "col-form-label me-1 mb-1" %><span class="badge bg-danger">必須</span>
-                    <%= f.text_field :title, class: "form-control mb-1", placeholder: 'タイトルを入力 (48文字以内)', required: 'required' %>
-                    <%= f.text_area :description, class: "form-control", rows: 6, placeholder: '内容を入力', required: 'required' %>
-                  </div>
-                  <div class="mb-3">
-                    <%= f.label :category_id, "カテゴリを選択", class: "col-form-label me-1" %><span class="badge bg-danger">必須</span>
-                    <%= f.select :category_id, @categories.map { |category| [category.name, category.id] }, {}, class: 'form-select' %>
-                    <%#= f.collection_select(:category_id, @categories, :id, :name) でもOK
-                    <select name="topic[category_id]" id="topic_category_id" class="form-select">
-                      <option value="1">ファッション〜</option><option value="2">ニュース</option><option value="3">健康</option>...
-                    </select> %>
-                  </div>
-                </div><!--.modal-body-->
-                <div class="modal-footer me-1">
-                  <button type="button" class="inner-close-btn" data-bs-dismiss="modal">閉じる</button>
-                  <%= f.submit '作成する', class: 'inner-create-btn' %>
-                </div>
+                <%= render partial: "layouts/modal-body", locals: { f: f, categories: @categories } %>
               </div>
-            </div><!--.modal-dialog-->
+            </div>
           </div>
         <% end %>
       </div><%# .create-topic %>
 
-      <div class="ranking-topic">
-        <div class="ranking-topic-title">
-          <h3><span class="star-icon"></span>人気ランキング</h3>
+      <div class="category-search" id='post-anchor'>
+        <p><span class='category-icon'></span>カテゴリーで探す</p>
+        <div class="category-button">
+          <% @categories.each do |category| %>
+            <%= link_to category.name, topics_path(category: category.id, anchor: 'post-anchor'),  class: 'button d-button' %>
+          <% end %>
         </div>
-        <% @ranktopics.each.with_index(1) do |topic, i|%>
-          <li class="ranking-item">
-            <% if i == 1 %>
-              <%#= i %>
-              <span class="rank-title1"><%= link_to topic.title, topic_path(topic) %></span><br>
-              <%= render partial: "layouts/item", locals: { topic: topic } %>
-            <% elsif i == 2 %>
-              <span class="rank-title2"><%= link_to topic.title, topic_path(topic) %></span><br>
-              <%= render partial: "layouts/item", locals: { topic: topic } %>
-            <% elsif i == 3 %>
-              <span class="rank-title3"><%= link_to topic.title, topic_path(topic) %></span><br>
-              <%= render partial: "layouts/item", locals: { topic: topic } %>
-            <% elsif i == 4 %>
-              <span class="rank-title4"><%= link_to topic.title, topic_path(topic) %></span><br>
-              <%= render partial: "layouts/item", locals: { topic: topic } %>
-            <% elsif i == 5 %>
-              <span class="rank-title5"><%= link_to topic.title, topic_path(topic) %></span><br>
-              <%= render partial: "layouts/item", locals: { topic: topic } %>
-            <% elsif i == 6 %>
-              <span class="rank-title6"><%= link_to topic.title, topic_path(topic) %></span><br>
-              <%= render partial: "layouts/item", locals: { topic: topic } %>
-            <% elsif i == 7 %>
-              <span class="rank-title7"><%= link_to topic.title, topic_path(topic) %></span><br>
-              <%= render partial: "layouts/item", locals: { topic: topic } %>
-            <% elsif i == 8 %>
-              <span class="rank-title8"><%= link_to topic.title, topic_path(topic) %></span><br>
-              <%= render partial: "layouts/item", locals: { topic: topic } %>
-            <% elsif i == 9 %>
-              <span class="rank-title9"><%= link_to topic.title, topic_path(topic) %></span><br>
-              <%= render partial: "layouts/item", locals: { topic: topic } %>
-            <% else %>
-              <span class="rank-title10"><%= link_to topic.title, topic_path(topic) %></span><br>
-              <%= render partial: "layouts/item", locals: { topic: topic } %>
-            <% end %>
-          </li>
-        <% end %>
+      </div>
+
+      <div class="tag-serch">
+        <p><span class='tag-icon'></span>タグで探す</p>
+        <div class="tag-button">
+          <% @tags.each do |tag| %>
+            <%= link_to "##{tag}", topics_path(keyword: tag, anchor: 'post-anchor'),  class: 'button' %>
+          <% end %>
+        </div>
+      </div>
+
+
+      <div class="ranking-topic">
+        <%= render partial: "layouts/ranking", locals: { ranktopics: @ranktopics } %>
       </div>
     </div><%# .right %>
   </section><%# .container %>
-  <div id="page_top"><a href=topics#index></a></div>
+  <div id="page_top"><a href="/"></a></div>
 
 </main>
 
-<%= javascript_pack_tag 'topics' %>   <%# ← 個別のページで packs/topics.jsを適用 %>
+<%= javascript_pack_tag 'topics', defer: "defer" %>
+
+<% if @category.present? %>
+  <%= %>
+<% elsif @keyword.present? %>
+  <%= %>
+<% else %>
+  <%= javascript_pack_tag 'mount', defer: true %>
+<% end %>

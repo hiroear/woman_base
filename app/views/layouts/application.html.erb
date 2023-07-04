@@ -6,15 +6,17 @@
     <meta name="description" content="女性のための情報プラットフォーム">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400&family=Noto+Sans+JP:wght@200;300;400&family=Open+Sans&display=swap" rel="stylesheet">
-
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%# ↓ turbolinksのエラー回避。だが、キャッシュなどがあっても強制的に再度リロードしてしまうため、表示スピードが遅くなる %>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400&family=Noto+Sans+JP:wght@200;300;400&family=Open+Sans&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/locale/ja.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <meta name="turbolinks-visit-control" content="reload">
     <script src="https://kit.fontawesome.com/2d6f3622dc.js" crossorigin="anonymous"></script>
   </head>

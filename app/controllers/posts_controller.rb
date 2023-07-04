@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  protect_from_forgery
 
   def create
     topic = Topic.find(params[:topic_id])
@@ -13,7 +14,7 @@ class PostsController < ApplicationController
 
   private
     def post_params
-      params.require(:post).permit(:name, :content).
-              merge(topic_id: params[:topic_id])
+      params.permit(:name, :content, :topic_id)
+              # merge(topic_id: params[:topic_id])
     end
 end

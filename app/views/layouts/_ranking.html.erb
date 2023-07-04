@@ -1,0 +1,39 @@
+<div class="ranking-topic-title">
+  <h3><span class="star-icon"></span>人気ランキング</h3>
+</div>
+<% ranktopics.each.with_index(1) do |topic, i|%>
+  <li class="ranking-item">
+    <% if i == 1 %>
+      <%#= i %>
+      <span class="rank-title1"><%= link_to topic.title, topic_path(topic) %></span><br>
+      <%= render partial: "layouts/item", locals: { topic: topic } %>
+    <% elsif i == 2 %>
+      <span class="rank-title2"><%= link_to topic.title, topic_path(topic) %></span><br>
+      <%= render partial: "layouts/item", locals: { topic: topic } %>
+    <% elsif i == 3 %>
+      <span class="rank-title3"><%= link_to topic.title, topic_path(topic) %></span><br>
+      <%= render partial: "layouts/item", locals: { topic: topic } %>
+    <% elsif i == 4 %>
+      <span class="rank-title4"><%= link_to topic.title, topic_path(topic) %></span><br>
+      <%= render partial: "layouts/item", locals: { topic: topic } %>
+    <% elsif i == 5 %>
+      <span class="rank-title5"><%= link_to topic.title, topic_path(topic) %></span><br>
+      <%= render partial: "layouts/item", locals: { topic: topic } %>
+    <% elsif i == 6 %>
+      <span class="rank-title6"><%= link_to topic.title, topic_path(topic) %></span><br>
+      <%= render partial: "layouts/item", locals: { topic: topic } %>
+    <% elsif i == 7 %>
+      <span class="rank-title7"><%= link_to topic.title, topic_path(topic) %></span><br>
+      <%= render partial: "layouts/item", locals: { topic: topic } %>
+    <% elsif i == 8 %>
+      <span class="rank-title8"><%= link_to topic.title, topic_path(topic) %></span><br>
+      <%= render partial: "layouts/item", locals: { topic: topic } %>
+    <% elsif i == 9 %>
+      <span class="rank-title9"><%= link_to topic.title, topic_path(topic) %></span><br>
+      <%= render partial: "layouts/item", locals: { topic: topic } %>
+    <% else %>
+      <span class="rank-title10"><%= link_to topic.title, topic_path(topic) %></span><br>
+      <%= render partial: "layouts/item", locals: { topic: topic } %>
+    <% end %>
+  </li>
+<% end %>

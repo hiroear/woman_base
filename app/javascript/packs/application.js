@@ -13,8 +13,11 @@ import 'bootstrap';                     //追記
 import '../stylesheets/application';    //追記
 require('jquery')   //追記
 // require("@rails/ujs").start()
+// require react
+// require react_ujs
+// require components
 
 
 Rails.start()
 Turbolinks.start()
-ActiveStorage.start()
+ActiveStorage.start()// Support component names relative to this directory:

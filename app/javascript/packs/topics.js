@@ -25,7 +25,7 @@ $('.page-link').on('click', function () {
 });
 
 // なぜかアンカーでページ遷移しないので URLに #アンカー名がある場合のみ、URLのアンカー位置までスクロールする
-$(function () {     // $(function () {})で囲うと処理の内容を必要な回数だけ何度でも呼び出すことができる
+$(function () {                                  // $(function () {})で囲うと処理の内容を必要な回数だけ何度でも呼び出すことができる
   const headH = $("header").outerHeight();       //<header>の外側の高さを数値で取得
   const animeSpeed = 100;                        //数値が大きくなる程遅い
   const urlHash = location.hash;                 //URLの #アンカー(#ハッシュタグ)を取得

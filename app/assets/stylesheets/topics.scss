@@ -1,3 +1,15 @@
+@keyframes mainDisplay {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes bgDisplay {
+  0% {
+    background: #E6D9DB url(/images/bg_image_50.png) center top/cover;
+  }
+  100% {
+    background: #E6D9DB url(/images/bg_image.png) center top/cover;
+  }
+}
 
 * {
   box-sizing: border-box;
@@ -13,10 +25,11 @@ body {
   font-weight: 400;
   letter-spacing: 0.1em;
   font-family: Meiryo,sans-serif,'IBM Plex Sans','Noto Sans JP','Open Sans';
-  background: #E6D9DB url(../stylesheets/images/bg_image.png) center top/cover;
-  position: relative;/*footer用*/
+  background: #E6D9DB url(/images/bg_image.png) center top/cover;
+  position: relative;   /*footer用*/
   min-height: 100vh;
-  padding-bottom: 465px;/*footerの高さ*/
+  padding-bottom: 265px;/*footerの高さ*/
+  animation: bgDisplay 2.5s;
 }
 
 .w-90 {
@@ -46,13 +59,14 @@ body {
 
 .left {
   max-width: 65%;
+  width: 65%;
 }
 .right {
   max-width: 35%;
 }
 
-// img {
-//   width: 100%;
+// main {
+//   animation: mainDisplay 1.5s;;
 // }
 
 /* PC用ヘッダーナビのスタイル */
@@ -236,8 +250,10 @@ body.open .sp-nav {
   width: 150px;
 }
 
+
 /* メインロゴのスタイル */
 .main-image {
+  animation: mainDisplay 2s;
   margin-top: 170px;
   text-align: center;
   img{
@@ -276,14 +292,6 @@ body.open .sp-nav {
     color: #e19f9a;
     font-weight: bold;
   }
-  h3::before {
-    content: '';
-    display: inline-block;
-    width: 12px;
-    height: 30px;
-    margin-right: 10px;
-    background: #1d4763;
-  }
 }
 .new-topic {
   display: inline-block;
@@ -318,19 +326,22 @@ body.open .sp-nav {
 }
 
 /* トピックを探す、トピックを作成する、人気ランキングの枠 */
-.search-topic,.create-topic,.ranking-topic,.sub-create-topic,.sub-ranking-topic {
+.keyword-form {
+  padding: 2rem 2rem 1rem 2rem;
+}
+.search-topic, .create-topic, .ranking-topic, .sub-create-topic, .sub-ranking-topic, .favorite-topic {
   background: #fff;
   border-radius: 25px;
 }
-.search-topic-title h3,.create-topic-title h3,.ranking-topic h3 {
+.search-topic-title h3, .create-topic-title h3, .ranking-topic h3, .favorite-topic-title h3 {
   font-size: 22px;
   font-weight: bold;
   margin-left: 25px;
-  padding-top: 35px;
+  padding-top: 28px;
   color: #e19f9a;
   white-space: nowrap;
 }
-.search-topic-title h3::before,.create-topic-title h3::before,.ranking-topic h3::before,.sub-create-topic h3::before,.sub-ranking-topic h3::before {
+.newtopic-title h3::before, .search-topic-title h3::before, .create-topic-title h3::before, .ranking-topic h3::before, .sub-create-topic h3::before, .sub-ranking-topic h3::before, .favorite-topic-title h3::before {
   content: '';
   display: inline-block;
   width: 12px;
@@ -345,7 +356,7 @@ body.open .sp-nav {
 }
 .create-topic {
   max-width: 85%;
-  margin: 50px 0;
+  margin: 50px 0 25px 0;
   padding-bottom: 5px;
 }
 .ranking-topic {
@@ -378,21 +389,20 @@ button[type="submit"]{
 
 /* カテゴリで探す、タグで探すのスタイル */
 .category-search,.tag-serch {
+  max-width: 85%;
   background: rgba(230,217,219,0.3);
-  margin-left: 5%;
   margin-bottom: 25px;
-  width: 90%;
   border: none;
   border-radius: 15px;
   p {
-    padding: 20px 0px 8px 20px;
+    padding: 9px 0 0 15px;
     color: #4D4D4D;
     font-weight: bold;
   }
 }
 .category-button, .tag-button {
   margin: 0 3%;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   line-height: 30px;
   a {
     color: #4D4D4D;
@@ -421,9 +431,7 @@ button[type="submit"]{
   margin-bottom: 25px;
   width: 90%;
   /* border: 1px solid #4D4D4D; */
-}
-.topic-button-area {
-  padding-bottom: 35px;
+  padding-bottom: 15px;
   a {
     color: #4D4D4D;
     text-decoration: none;
@@ -460,6 +468,7 @@ button[type="submit"]{
   font-weight: bold;
   font-size: .87rem;
   transition: all 0.3s ease;
+  text-align: center;
   &:hover {
     background: #27658e;
   }
@@ -613,9 +622,8 @@ footer {
   background: #fff;
 }
 .footer-sns {
-  // height: 200px;
   text-align: center;
-  padding: 50px;
+  padding: 20px;
 }
 .copyright {
   background: #f8ecea;
@@ -700,7 +708,7 @@ footer {
   h3 {
     font-size: 20px;
     margin-left: 15px;
-    padding-top: 25px;
+    padding-top: 20px;
     font-weight: bold;
     color: #e19f9a;
     white-space: nowrap;
@@ -759,7 +767,7 @@ footer {
 
 /* パンくずリスト */
 .pankuzu {
-  margin: 230px 0 10px 6%;
+  margin: 170px 0 10px 6%;
   padding-right: 30px;
 }
 .pankuzu-a {
@@ -895,14 +903,14 @@ footer {
 }
 
 /* みんなの声カラム */
-.article-bbs {
-  max-width: 95%;
-  background: #fff;
-  margin: 30px 0 30px 6%;
-  border-radius: 20px;
-}
+// .article-bbs {
+//   max-width: 95%;
+//   background: #fff;
+//   margin: 30px 0 30px 6%;
+//   border-radius: 20px;
+// }
 .bbs-title {
-  padding: 17px 15px 1px 15px;
+  padding: 40px 15px 1px 15px;
   border-bottom: 1px solid #1d4763;
   h3 {
     margin-left: 20px;
@@ -928,7 +936,7 @@ footer {
 }
 .bbs-detail {
   padding: 10px;
-  margin: 0 10px 0 10px;
+  margin: 0 10px 1rem 10px;
   color: #4D4D4D;
   overflow-wrap: break-word;
   border-top: 1px dotted #a09f9f;
@@ -951,7 +959,7 @@ footer {
 
 /* スマホ版のみのトップのトピ作成ボタン */
 .sp-create-topic-button {
-  margin: 170px 0% 50px 20%;
+  margin: 145px 0% 40px 20%;
   width: 60%;
   color: #fff;
   background:#1d4763;
@@ -963,6 +971,13 @@ footer {
     color: #fff;
     background:#3b7299;
   }
+}
+
+
+/* お気に入り一覧ページ */
+.favorite-topic {
+  max-width: 100%;
+  margin-left: 6%;
 }
 
 /*-------------- fontawesome--------------*/
@@ -995,13 +1010,6 @@ footer {
   font-size: 18px;
   margin: 0 2px 0 3px;
   color: rgb(207, 198, 198);
-}
-.search-icon::before {
-  content: '\f002';
-  font-family: Font Awesome\ 5 Free;
-  font-weight: 900;
-  margin: 4px;
-  color: rgb(151, 152, 174);
 }
 .search-mini::before {
   content: '\f002';
@@ -1148,6 +1156,7 @@ footer {
   border: none;
   color: #696969;
   font-size: 15px;
+  cursor: pointer;
   &:hover {
     color: #696969;
   }
@@ -1161,6 +1170,10 @@ footer {
   line-height: normal;
 }
 
+.button-disabled {
+  opacity: 0.5;
+  cursor: default;
+}
 
 /* ------------レスポンシブ------------- */
 
@@ -1182,13 +1195,16 @@ footer {
   }
 }
 @media screen and (max-width:768px) {
+  .index_main {
+    padding-bottom: 72em;
+  }
   .frame {
     flex-wrap: wrap;
     max-width: 650px;
   }
-  .left, .sub-left {
-    max-width: 101%;
-    width: 101%;
+  .left, .right, .sub-left {
+    max-width: 100%;
+    width: 100%;
   }
 }
 
@@ -1247,6 +1263,7 @@ footer {
 @media screen and (max-width: 855px) {
   .newtopic-list {
     max-width: 100%;
+    width: 93%;
     margin: 50px 6% 0 6%;
   }
 }
@@ -1285,7 +1302,7 @@ footer {
   }
 }
 @media screen and (max-width: 768px) {
-  .search-topic-title h3,.create-topic-title h3,.ranking-topic h3 {
+  .search-topic-title h3,.create-topic-title h3,.ranking-topic h3, .favorite-topic h3 {
     font-size: 18px;
     padding-top: 25px;
     font-weight: bold;
@@ -1295,6 +1312,8 @@ footer {
     height: 23px;
   }
   .search-topic {
+    position: absolute;
+    top: 975px;
     margin-top: 30px;
     width: 88%;
   }
@@ -1308,6 +1327,18 @@ footer {
     display: none;
   }
 }
+@media screen and (max-width: 480px) {
+  .search-topic {
+    position: absolute;
+    top: 1040px;
+  }
+}
+@media screen and (max-width: 360px) {
+  .search-topic {
+    position: absolute;
+    top: 1080px;
+  }
+}
 
 // キーワード検索エリア
 @media screen and (max-width: 768px) {
@@ -1319,7 +1350,18 @@ footer {
 }
 
 // カテゴリで探す、タグで探すのスタイル
+@media screen and (max-width: 855px) {
+  .category-search,.tag-serch {
+    max-width: 90%;
+    margin: 20px 3% 15px 3%;
+  }
+}
 @media screen and (max-width: 768px) {
+  .category-search,.tag-serch {
+    max-width: 100%;
+    width: 88%;
+    margin: 20px 1% 0 6%;
+  }
   .category-search p,.tag-serch p {
     font-size: 14px;
   }
@@ -1335,8 +1377,8 @@ footer {
 
 // トピック一覧
 @media screen and (max-width: 768px) {
-  .topic-button-area a {
-      font-size: 14px;
+  .topic-area a {
+    font-size: 14px;
   }
   .topic-title h3 {
     font-size: 18px;
@@ -1447,8 +1489,8 @@ footer {
   }
 }
 @media screen and (max-width: 768px) {
-  .article-topic, .article-comment, .article-bbs {
-    max-width: 90%;
+  .article-topic, .article-comment, .favorite-topic {
+    max-width: 88%;
   }
   .article-title {
     padding-top: 20px;

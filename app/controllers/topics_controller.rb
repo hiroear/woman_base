@@ -6,9 +6,9 @@ class TopicsController < ApplicationController
     if params[:keyword].present?
       @keyword = params[:keyword].strip
       if params[:keyword_latest].present?                      # 降順
-        @topics = Topic.search_topic(@keyword).latest.display_list(params[:page])
+        @topics = Topic.include.search_topic(@keyword).latest.display_list(params[:page])
       else                                                     # デフォルト / 昇順(keyword_old)
-        @topics = Topic.search_topic(@keyword).old.display_list(params[:page])
+        @topics = Topic.include.search_topic(@keyword).old.display_list(params[:page])
       end
 
     # カテゴリ一覧(内 昇順/降順)表示
@@ -20,17 +20,16 @@ class TopicsController < ApplicationController
         @topics = Topic.category_of(@category).old.display_list(params[:page])
       end
 
-    else  # デフォルト
-      if params[:ascend].present?
-        @topics = Topic.include.old.display_list(params[:page])          # 昇順
-      else
-        @topics = Topic.include.latest.display_list(params[:page])       # Topics一覧 / 降順(recent)
-      end
+    else  # デフォルト(React)
+      # @topics = Topic.include.latest.display_list(params[:page])       # Topics一覧 / 降順(recent)
+      @topics = Topic.latest
+      @topic_old = Topic.old
+      @posts = Post.all
     end
 
     @newtopics = Topic.include.latest.take(FIVE)
     @ranktopics = Topic.include.most_posts
-    @categories = Category.all
+    @categories = Category.all      #react
     @topic = Topic.new
     @tags = ["結婚", "ダイエット", "職場", "美容", "妊娠", "育児", "ドラマ", "コロナ", "料理"]
   end
@@ -38,15 +37,11 @@ class TopicsController < ApplicationController
 
   def show
     @topic = Topic.find(params[:id])
+    # @topic = Topic.includes(:category).where(id: topic.id)
     @alreadylike = @topic.likes.find_by(ip: request.remote_ip, topic_id: @topic)
+    @posts_latest = Post.includes(:topic).where(topic_id: @topic.id).order(updated_at: :desc)  # デフォルト
+    @posts_old = Post.includes(:topic).where(topic_id: @topic.id).order(updated_at: :asc)
 
-    if params[:latest]
-      @posts = Post.includes(:topic).where(topic_id: @topic.id).order(updated_at: :desc)
-    else
-      @posts = Post.includes(:topic).where(topic_id: @topic.id).order(updated_at: :asc) # デフォルト / params[:old]
-    end
-
-    @post = @posts.new
     @categories = Category.all
     @show_topic = Topic.new
     @ranktopics = Topic.include.most_posts
@@ -60,7 +55,7 @@ class TopicsController < ApplicationController
         format.html { redirect_to topics_path, notice: '新しいトピックが作成されました' }
         # format.json { render :show, status: :created, location: @topic }
       else
-        format.html { render :index }
+        format.html { render :index, notice: 'トピック作成に失敗しました。文字数は正しいですか？' }
         # format.json { render json: @topic.errors, status: :unprocessable_entity }
       end
     end
