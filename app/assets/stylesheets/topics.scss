@@ -555,43 +555,43 @@ button[type="submit"]{
   vertical-align: middle;
 }
 .rank-title1::before {
-  background: url(../stylesheets/images/ranking_01.png) no-repeat;
+  background: url(/images/ranking_01.png) no-repeat;
   background-size: contain;
 }
 .rank-title2::before {
-  background: url(../stylesheets/images/ranking_02.png) no-repeat;
+  background: url(/images/ranking_02.png) no-repeat;
   background-size: contain;
 }
 .rank-title3::before {
-  background: url(../stylesheets/images/ranking_03.png) no-repeat;
+  background: url(/images/ranking_03.png) no-repeat;
   background-size: contain;
 }
 .rank-title4::before {
-  background: url(../stylesheets/images/ranking_04.png) no-repeat;
+  background: url(/images/ranking_04.png) no-repeat;
   background-size: contain;
 }
 .rank-title5::before {
-  background: url(../stylesheets/images/ranking_05.png) no-repeat;
+  background: url(/images/ranking_05.png) no-repeat;
   background-size: contain;
 }
 .rank-title6::before {
-  background: url(../stylesheets/images/ranking_06.png) no-repeat;
+  background: url(/images/ranking_06.png) no-repeat;
   background-size: contain;
 }
 .rank-title7::before {
-  background: url(../stylesheets/images/ranking_07.png) no-repeat;
+  background: url(/images/ranking_07.png) no-repeat;
   background-size: contain;
 }
 .rank-title8::before {
-  background: url(../stylesheets/images/ranking_08.png) no-repeat;
+  background: url(/images/ranking_08.png) no-repeat;
   background-size: contain;
 }
 .rank-title9::before {
-  background: url(../stylesheets/images/ranking_09.png) no-repeat;
+  background: url(/images/ranking_09.png) no-repeat;
   background-size: contain;
 }
 .rank-title10::before {
-  background: url(../stylesheets/images/ranking_10.png) no-repeat;
+  background: url(/images/ranking_10.png) no-repeat;
   background-size: contain;
 }
 
@@ -775,7 +775,7 @@ footer {
 /* コメントアイコン */
 .article-title h3::before {
   content: '';
-  background: url(../stylesheets/images/icon_comment.svg) no-repeat;
+  background: url(/images/icon_comment.svg) no-repeat;
   background-size: contain;
   display: inline-block;
   width: 30px;
