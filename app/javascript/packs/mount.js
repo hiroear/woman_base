@@ -1,15 +1,15 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { ReactTopics, ReactFavorites, CommentPost } from "./components";  //"./components.index"の省略形
+import { Topics, CreateTopic, Favorites, CommentPost } from "./components";  //"./components.index"の省略形
 
 // document.addEventListener('turbolinks:load', () => {
-//   const mountNode = document.getElementById('react_index');
+//   const mountNode = document.getElementById('topics');
 //   const message = mountNode.dataset.message;
 //   const root = createRoot(mountNode);
-//   root.render(<ReactIndex message={message} />);
+//   root.render(<Topics message={message} />);
 // })
 
-const mountIndex = (Component, mountNodeId) => {
+const mount = (Component, mountNodeId) => {
   document.addEventListener('DOMContentLoaded', () => {
     const mountNode = document.getElementById(mountNodeId);         // id要素を取得
     const propsJSON = mountNode.getAttribute("data-react-props");   // data属性の値を取得
@@ -19,6 +19,10 @@ const mountIndex = (Component, mountNodeId) => {
   })
 };
 
-mountIndex(ReactTopics, 'react_topics');
-mountIndex(ReactFavorites, 'react_favorite');
-mountIndex(CommentPost, 'react_post_comment');
+mount(Topics, 'topics');
+mount(CreateTopic, 'create_topic');
+mount(CreateTopic, 'sp_create_topic');
+mount(CreateTopic, 'sp_favorite_create_topic');
+mount(CreateTopic, 'favorite_create_topic');
+mount(Favorites, 'favorite');
+mount(CommentPost, 'post_comment');

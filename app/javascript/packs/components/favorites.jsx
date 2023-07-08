@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Pagination, Topic } from "./index";
 
-const ReactFavorites = ({likedTopics, categories, posts}) => {
+const Favorites = ({likedTopics, categories, posts}) => {
   const [searchLikeTopics, setSearchLikeTopics] = useState(likedTopics);
   const [currentPage, setCurrentPage] = useState(1);
   const [topicsPerPage] = useState(20);
@@ -57,4 +57,4 @@ const ReactFavorites = ({likedTopics, categories, posts}) => {
   );
 };
 
-export default ReactFavorites;
+export default Favorites;

@@ -14,8 +14,7 @@ const CommentPost = ({topic, postsLatest}) => {
   const [disabled, setDisabled] = useState(true);
   const [posts, setPosts] = useState(postsLatest);
 
-
-  console.log(posts, commentPost, disabled);
+  // console.log(posts, commentPost, disabled);
 
   // toast
   const notify = () => {
@@ -96,6 +95,15 @@ const CommentPost = ({topic, postsLatest}) => {
   }, [commentPost]);
 
 
+  // コメントフォームまでスクロール
+  const scrollToCommentArea = () => {
+    const target = document.getElementById('comment-target'); // 移動させたい位置の要素を取得
+    //↓ ブラウザの表示領域の左上を基点として、そこからの相対位置を取得
+    //↓ document要素の絶対位置(値は固定) window.pageYOffsetはdocumentの上端からのスクロール量
+    const position = target.getBoundingClientRect().top + window.pageYOffset;
+    scrollTo(0, position);
+  };
+
   return (
     <>
       <ToastContainer icon={'😃'} toastStyle={{ color: 'white', backgroundColor: '#8cbcdb', fontWeight: 'bold'}} />
@@ -120,7 +128,9 @@ const CommentPost = ({topic, postsLatest}) => {
       </div>
       <div className="bbs-content">
         <Post posts={posts} />
-        <button className="end-comment-button">コメントする</button>
+        <button className="end-comment-button" onClick={scrollToCommentArea}>
+          <span className='comment-smile'></span>コメントする
+        </button>
       </div>
     </>
   )

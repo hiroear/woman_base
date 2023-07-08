@@ -1,21 +1,10 @@
 <main>
   <%# モバイル用 トピ新規作成モーダル %>
   <div class="sp-only">
-    <%= form_with model: @show_topic, url: topics_path(anchor: 'post-anchor'), method: :post, local: true do |f| %>
-      <button type="button" class="sp-create-topic-button" data-bs-toggle="modal" data-bs-target="#spNewFormModal"><span class="plus-icon"></span>トピックを作成する</button>
-      <div class="modal fade" id="spNewFormModal" tabindex="-1" aria-labelledby="spNewFormModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title fw-bold create-topic-title" id="spNewFormModalLabel"><span class="pen-icon"></span>トピックを作成する</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <%= render partial: "layouts/modal-body", locals: { f: f, categories: @categories } %>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div><%# .sp-only %>
+    <div class='sp-create-topic-button'>
+      <%= react_component('sp_favorite_create_topic', {categories: @categories}) %>
+    </div>
+  </div>
 
   <div class="pankuzu">
     <%= link_to "コミュニティトップ", root_path, class: 'pankuzu-a' %> > <span class="pankuzu-a">お気に入り一覧</span>
@@ -24,8 +13,8 @@
   <section class="frame">
     <div class="sub-left">
       <div class="favorite-topic">
-        <%= react_component('react_favorite', {likedTopics: @liked_topics, categories: @categories, posts: @posts}) %>
-        <%#= tag.div id: 'react_favorite', data: {react_props: {likedTopics: @liked_topics, categories: @categories, posts: @posts}} %>
+        <%= react_component('favorite', {likedTopics: @liked_topics, categories: @categories, posts: @posts}) %>
+        <%#= tag.div id: 'favorite', data: {react_props: {likedTopics: @liked_topics, categories: @categories, posts: @posts}} %>
       </div>
     </div>
 
@@ -39,26 +28,13 @@
           <p>美容や健康、仕事に子育てなど、女性に関するあらゆる相談から、テレビや芸能人に関する雑談など何でもOK！</p>
         </div>
         <%# トピック新規作成モーダル %>
-        <%= form_with model: @show_topic, url: topics_path(anchor: 'post-anchor'), method: :post, local: true do |f| %>
-          <button type="button" class="sub-create-topic-button w-75" data-bs-toggle="modal" data-bs-target="#subNewFormModal"><span class="plus-icon"></span>トピックを作成する</button>
-          <div class="modal fade" id="subNewFormModal" tabindex="-1" aria-labelledby="subNewFormModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title fw-bold create-topic-title" id="subNewFormModalLabel"><span class="pen-icon"></span>トピックを作成する</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <%= render partial: "layouts/modal-body", locals: { f: f, categories: @categories } %>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      </div><%# .sub-create-topic %>
+        <%= react_component('favorite_create_topic', {categories: @categories}) %>
+      </div>
 
       <div class="sub-ranking-topic mt-4">
         <%= render partial: "layouts/ranking", locals: { ranktopics: @ranktopics } %>
       </div>
-    </div><%# .sub-right %>
+    </div>
   </section>
 </main>
 

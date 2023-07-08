@@ -1,4 +1,5 @@
 class TopicsController < ApplicationController
+  protect_from_forgery
   FIVE = 5
 
   def index
@@ -50,15 +51,8 @@ class TopicsController < ApplicationController
 
   def create
     @topic = Topic.new(topic_params)
-    respond_to do |format| #リクエストされたレスポンスの形式によって分岐させる文
-      if @topic.save
-        format.html { redirect_to topics_path, notice: '新しいトピックが作成されました' }
-        # format.json { render :show, status: :created, location: @topic }
-      else
-        format.html { render :index, notice: 'トピック作成に失敗しました。文字数は正しいですか？' }
-        # format.json { render json: @topic.errors, status: :unprocessable_entity }
-      end
-    end
+    @topic.save
+    redirect_to topics_path
     # redirect_to request.referer, notice: '作成されました'  # request.referer: 遷移元のURlを再取得
   end
 
@@ -73,7 +67,7 @@ class TopicsController < ApplicationController
 
   private
     def topic_params
-      params.require(:topic).permit(:name, :title, :description, :category_id)
+      params.permit(:name, :title, :description, :category_id)
     end
 
 end

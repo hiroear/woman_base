@@ -1,21 +1,10 @@
 <main>
   <%# モバイル用 トピ新規作成モーダル %>
   <div class="sp-only">
-    <%= form_with model: @show_topic, url: topics_path(anchor: 'post-anchor'), method: :post, local: true do |f| %>
-      <button type="button" class="sp-create-topic-button" data-bs-toggle="modal" data-bs-target="#spNewFormModal"><span class="plus-icon"></span>トピックを作成する</button>
-      <div class="modal fade" id="spNewFormModal" tabindex="-1" aria-labelledby="spNewFormModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title fw-bold create-topic-title" id="spNewFormModalLabel"><span class="pen-icon"></span>トピックを作成する</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <%= render partial: "layouts/modal-body", locals: { f: f, categories: @categories } %>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div><%# .sp-only %>
+    <div class='sp-create-topic-button'>
+      <%= react_component('sp_create_topic', {categories: @categories}) %>
+    </div>
+  </div>
 
   <div class="pankuzu">
     <%= link_to "コミュニティトップ", root_path, class: 'pankuzu-a' %> > <%= link_to @topic.category.name, topics_path(category: @topic.category.id, anchor: 'post-anchor'), class: 'pankuzu-a' %> > <span class="pankuzu-a"><%= @topic.title %></span>
@@ -60,7 +49,7 @@
       </article>
 
       <article class="article-comment" id="show-anchor">
-        <%= react_component('react_post_comment', {topic: @topic, postsLatest: @posts_latest}) %>
+        <%= react_component('post_comment', {topic: @topic, postsLatest: @posts_latest}) %>
         <%#= tag.div id: 'react_post-comment', data: {react_props: {topic: @topic, posts: @posts}} %>
       </article>
       <%#= button_to '新着順', topic_path(@topic, anchor: 'show-anchor'), {method: :get, params: {latest: 'true'}, class: 'topic-button my-2 ms-4'} %>
@@ -76,28 +65,15 @@
           <h5>新しいトークテーマを作ろう</h5>
           <p>美容や健康、仕事に子育てなど、女性に関するあらゆる相談から、テレビや芸能人に関する雑談など何でもOK！</p>
         </div>
-        <%# トピック新規作成モーダル %>
-        <%= form_with model: @show_topic, url: topics_path(anchor: 'post-anchor'), method: :post, local: true do |f| %>
-          <button type="button" class="sub-create-topic-button w-75" data-bs-toggle="modal" data-bs-target="#subNewFormModal"><span class="plus-icon"></span>トピックを作成する</button>
-          <div class="modal fade" id="subNewFormModal" tabindex="-1" aria-labelledby="subNewFormModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title fw-bold create-topic-title" id="subNewFormModalLabel"><span class="pen-icon"></span>トピックを作成する</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <%= render partial: "layouts/modal-body", locals: { f: f, categories: @categories } %>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      </div><%# .sub-create-topic %>
+        <%= react_component('create_topic', {categories: @categories}) %>
+      </div>
 
       <div class="sub-ranking-topic mt-4">
         <%= render partial: "layouts/ranking", locals: { ranktopics: @ranktopics } %>
       </div>
-    </div><%# .sub-right %>
+    </div>
   </section>
+  <div id="page_top"></div>
 </main>
 
 <%= javascript_pack_tag 'topics', defer: true %>

@@ -1,5 +1,5 @@
 <header>
-  <p class="headercopy">女性のための交流掲示板</p>
+  <p class="header-copy">女性のための交流掲示板</p>
   <div class="header-logo-menu">
     <div class="logo-area">
       <%= link_to root_path do %>
@@ -26,7 +26,7 @@
       <ul class="sp-nav">
         <%= form_with url: topics_path(anchor: 'post-anchor'), method: :get, local: true, class: 'd-flex mb-5' do |f| %>
           <%= f.text_field :keyword, class: "form-control w-75 me-2", placeholder: 'キーワードを入力' %>
-          <button type="submit" class="text-nowrap"><span class="search-mini"></span>検索</button>
+          <button type="submit" class="text-nowrap w-25"><span class="search-mini"></span>検索</button>
         <% end %>
 
         <%# <button class="sp-login-button" type="button"><a href="#">ログイン</a></button> %>

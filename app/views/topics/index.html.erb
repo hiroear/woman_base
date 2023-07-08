@@ -3,7 +3,6 @@
     <%= image_tag "/images/logo_community.png", alt: 'main Logo' %>
     <p>全国の女性たちのリアルな暮らしを応援する交流掲示板です。<br>仕事や恋愛、家事に子育て、美容や健康の悩みまで、幅広い話題で盛り上がれます！ <br>合間の息抜きにぜひご利用ください。</p>
   </div>
-  <% if notice %><p class="notice"><%= notice %></div><% end %>
 
   <section class="frame">
     <div class="left">
@@ -23,8 +22,8 @@
       </div>
 
       <div class="search-topic">
-        <%= react_component('react_topics', {topics: @topics, categories: @categories, posts: @posts, topicOld: @topic_old}) %>
-        <%#= tag.div id: 'react_topics', data: {react_props: {topics: @topics, categories: @categories, posts: @posts, topicOld: @topic_old}} %>
+        <%= react_component('topics', {topics: @topics, categories: @categories, posts: @posts, topicOld: @topic_old}) %>
+        <%#= tag.div id: 'topics', data: {react_props: {topics: @topics, categories: @categories, posts: @posts, topicOld: @topic_old}} %>
 
         <div class="topic-area" id="topic_area">
           <% if @category.present? %>
@@ -53,7 +52,7 @@
             </li>
           <% end %>
           <%#= paginate @topics, theme: 'bootstrap-5', pagination_class: "pagination-sm flex-wrap" %>
-        </div><%# .topic-area %>
+        </div>
       </div><%# .search-topic %>
     </div><%# .left %>
 
@@ -66,22 +65,8 @@
           <h5>新しいトークテーマを作ろう</h5>
           <p>美容や健康、仕事に子育てなど、女性に関するあらゆる相談から、テレビや芸能人に関する雑談など何でもOK！</p>
         </div>
-        <%# トピック新規作成モーダル %>
-        <%= form_with model: @topic, url: topics_path(anchor: 'post-anchor'), method: :post, local: true do |f| %>
-          <button type="button" class="create-topic-button" data-bs-toggle="modal" data-bs-target="#newFormModal"><span class="plus-icon"></span>トピックを作成する</button>
-          <div class="modal fade" id="newFormModal" tabindex="-1" aria-labelledby="newFormModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title fw-bold create-topic-title" id="newFormModalLabel"><span class="pen-icon"></span>トピックを作成する</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <%= render partial: "layouts/modal-body", locals: { f: f, categories: @categories } %>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      </div><%# .create-topic %>
+        <%= react_component('create_topic', {categories: @categories}) %>
+      </div>
 
       <div class="category-search" id='post-anchor'>
         <p><span class='category-icon'></span>カテゴリーで探す</p>
@@ -106,17 +91,15 @@
         <%= render partial: "layouts/ranking", locals: { ranktopics: @ranktopics } %>
       </div>
     </div><%# .right %>
-  </section><%# .container %>
-  <div id="page_top"><a href="/"></a></div>
+  </section><%# .frame %>
+  <div id="page_top"></div>
 
 </main>
 
 <%= javascript_pack_tag 'topics', defer: "defer" %>
 
-<% if @category.present? %>
-  <%= %>
-<% elsif @keyword.present? %>
-  <%= %>
+<% if @category.present? || @keyword.present? %>
+  <%= javascript_pack_tag 'mountParams', defer: true %>
 <% else %>
   <%= javascript_pack_tag 'mount', defer: true %>
 <% end %>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Pagination, Topic } from "./index";
 
-const ReactTopics = ({ topics, categories, posts, topicOld }) => {
+const Topics = ({ topics, categories, posts, topicOld }) => {
   const [searchTopics, setSearchTopics] = useState(topics);
   const [currentPage, setCurrentPage] = useState(1);
   const [topicsPerPage] = useState(15);
@@ -67,7 +67,7 @@ const ReactTopics = ({ topics, categories, posts, topicOld }) => {
   return (
     <>
       <div className='keyword-form'>
-        <input className='form-control me-2' placeholder='キーワードを入力' type='text' onChange={(e) => handleSearch(e)}/>
+        <input className='form-control me-2' placeholder='キーワードを入力' type='text' id='keyword' onChange={(e) => handleSearch(e)}/>
       </div>
       <div className='topic-area'>
         <div className='topic-title'>
@@ -84,4 +84,4 @@ const ReactTopics = ({ topics, categories, posts, topicOld }) => {
   )
 };
 
-export default ReactTopics;
+export default Topics;
