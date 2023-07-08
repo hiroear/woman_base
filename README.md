@@ -4,7 +4,7 @@
 ログイン機能は付けずに、誰でも閲覧・トピック作成・トピックに対してのコメント投稿ができます。
 
 ### URL
-[サイトURL]:https://woman_base.herokuapp.com
+[サイトURL]:https://woman-base.herokuapp.com
 [WomanBase][サイトURL]
 ### 機能・使用技術　一覧
 * インフラ
