@@ -2,14 +2,14 @@
   0% { opacity: 0; }
   100% { opacity: 1; }
 }
-@keyframes bgDisplay {
-  0% {
-    background: #E6D9DB url(/images/bg_image_50.png) center top/cover;
-  }
-  100% {
-    background: #E6D9DB url(/images/bg_image.png) center top/cover;
-  }
-}
+// @keyframes bgDisplay {
+//   0% {
+//     background: #E6D9DB url(/images/bg_image_50.png) center top/cover;
+//   }
+//   100% {
+//     background: #E6D9DB url(/images/bg_image.png) center top/cover;
+//   }
+// }
 
 * {
   box-sizing: border-box;
@@ -29,7 +29,7 @@ body {
   position: relative;   /*footer用*/
   min-height: 100vh;
   padding-bottom: 265px;/*footerの高さ*/
-  animation: bgDisplay 2.5s;
+  // animation: bgDisplay 2.5s;
 }
 
 .w-90 {
@@ -1189,7 +1189,7 @@ footer {
     width: 130px;
     margin-left: 20px;
   }
-  .headercopy {
+  .header-copy {
     font-size: 0.55rem;
     padding: 0 0 0 8px;
   }
