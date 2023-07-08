@@ -772,18 +772,6 @@ footer {
   }
 }
 
-/* コメントアイコン */
-.article-title h3::before {
-  content: '';
-  background: url(/images/icon_comment.svg) no-repeat;
-  background-size: contain;
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  margin: 0px 8px 0px 15px;
-  vertical-align: middle;
-}
-
 /* トピック記事・みんなの声 パーツ */
 .article-parts,.bbs-parts {
   display: flex;
@@ -957,6 +945,15 @@ footer {
   font-size: 18px;
   margin: 0 2px 0 3px;
   color: rgb(207, 198, 198);
+}
+.comment-big::before {
+  content: '\f075';
+  font-family: Font Awesome\ 5 Free;
+  font-weight: 900;
+  font-size: 27px;
+  margin-left: 5px;
+  padding: 5px;
+  color: rgb(210, 205, 199);
 }
 .comment-smile::before {
   content: '\f4ad';
