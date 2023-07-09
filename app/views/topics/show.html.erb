@@ -50,7 +50,7 @@
 
       <article class="article-comment" id="show-anchor">
         <%= react_component('post_comment', {topic: @topic, postsLatest: @posts_latest}) %>
-        <%#= tag.div id: 'react_post-comment', data: {react_props: {topic: @topic, posts: @posts}} %>
+        <%#= tag.div id: 'post-comment', data: {react_props: {topic: @topic, posts: @posts}} %>
       </article>
       <%#= button_to '新着順', topic_path(@topic, anchor: 'show-anchor'), {method: :get, params: {latest: 'true'}, class: 'topic-button my-2 ms-4'} %>
       <%#= button_to '投稿順', topic_path(@topic, anchor: 'show-anchor'), {method: :get, params: {old: 'true'}, class: 'topic-button my-2'} %>

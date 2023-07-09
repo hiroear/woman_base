@@ -1,6 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Topics, CreateTopic, Favorites, CommentPost } from "./components";  //"./components.index"の省略形
+import 'react-toastify/dist/ReactToastify.css';
 
 // document.addEventListener('turbolinks:load', () => {
 //   const mountNode = document.getElementById('topics');

@@ -4,7 +4,7 @@
 ログイン機能は付けずに、誰でも閲覧・トピック作成・トピックに対してのコメント投稿ができます。
 
 ### URL
-[サイトURL]:https://woman-base.herokuapp.com
+[サイトURL]:https://woman-base-8626b4f5e035.herokuapp.com/
 [WomanBase][サイトURL]
 ### 機能・使用技術　一覧
 * インフラ
@@ -40,10 +40,9 @@
 
 ### 苦労したところ
 勉強中の Reactを導入したいと思い、Railsで完成していたビューに Reactを部分的に追加していく作業に、初めは慣れず試行錯誤しました。  
-webpackerで Reactを導入し、gemを使わず自作の関数と mount.jsを通してコンポーネントをビューに渡しています。  
+webpackerで Reactを導入し、gemを使わず関数と mount.jsを通してコンポーネントをビューに渡しています。  
 初めての Railsへの React導入で至らない点も多々ありますが、Reactだとできることが増え、自由度も高く、javascriptの深い理解につながりました。  
-新しい発見も多く、何より楽しかったです。  
-今後は Railsの APIモードで Reactを導入し、TypeScript、Next.jsにも挑戦したいと思っています。
+今後は TypeScript、Next.jsにも挑戦したいと思っています。
 
 ### 今後改善・追加したい機能
 * カテゴリの深いツリー構造の実装
