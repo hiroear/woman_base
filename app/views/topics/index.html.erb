@@ -99,7 +99,7 @@
 <%= javascript_pack_tag 'topics', defer: "defer" %>
 
 <% if @category.present? || @keyword.present? %>
-  <%= javascript_pack_tag 'mountParams', defer: true %>
+  <%= javascript_pack_tag 'mountParams' %>
 <% else %>
-  <%= javascript_pack_tag 'mount', defer: true %>
+  <%= javascript_pack_tag 'mount'%>
 <% end %>

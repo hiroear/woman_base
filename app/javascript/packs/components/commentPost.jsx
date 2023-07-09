@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Post } from "./index";
 
@@ -20,7 +20,9 @@ const CommentPost = ({topic, postsLatest}) => {
   const notify = () => {
     toast.success("コメントを投稿しました！", {
       position: "bottom-left",
-      hideProgressBar: true
+      hideProgressBar: true,
+      icon: '😃',
+      style: {color: 'white', backgroundColor: '#8cbcdb', fontWeight: 'bold'}
     })
   };
 
@@ -45,9 +47,9 @@ const CommentPost = ({topic, postsLatest}) => {
         content: resp.data.content,
         topic_id: resp.data.topic_id
       });
+      notify();
       const newPost = [commentPost, ...posts];
       setPosts(newPost);
-      notify();
       setCommentPost({
         id: null,
         name: '',
@@ -106,7 +108,6 @@ const CommentPost = ({topic, postsLatest}) => {
 
   return (
     <>
-      <ToastContainer icon={'😃'} toastStyle={{ color: 'white', backgroundColor: '#8cbcdb', fontWeight: 'bold'}} />
       <div className="comment-title">
         <h3>コメントする</h3>
       </div>
