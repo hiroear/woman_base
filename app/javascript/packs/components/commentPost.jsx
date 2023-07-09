@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Post } from "./index";
 
-toast.configure()
+// toast.configure();
 
 const CommentPost = ({topic, postsLatest}) => {
   const [commentPost, setCommentPost] = useState({
@@ -18,12 +18,17 @@ const CommentPost = ({topic, postsLatest}) => {
 
   // toast
   const notify = () => {
-    toast.success("コメントを投稿しました！", {
-      position: "bottom-left",
+    toast("コメントを投稿しました！", {
+      position: toast.POSITION.BOTTOM_LEFT,
+      autoClose: 5000,
       hideProgressBar: true,
-      icon: '😃',
-      style: {color: 'white', backgroundColor: '#8cbcdb', fontWeight: 'bold'}
-    })
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      icon: ({theme, type}) =>  <span className='check'></span>,
+      style: {color: 'white', backgroundColor: 'rgba(127, 148, 181, .8)', fontWeight: 'bold'}
+    });
   };
 
   // commentPostにコメント入力値を入れて更新
@@ -108,6 +113,8 @@ const CommentPost = ({topic, postsLatest}) => {
 
   return (
     <>
+      <ToastContainer />
+      <button onClick={notify}>ボタン</button>
       <div className="comment-title">
         <h3>コメントする</h3>
       </div>

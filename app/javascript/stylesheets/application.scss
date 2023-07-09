@@ -389,8 +389,7 @@ button[type="submit"]{
   }
 }
 .category-button, .tag-button {
-  margin: 0 3%;
-  padding-bottom: 10px;
+  padding: 0 3% 10px;
   line-height: 30px;
   a {
     color: #4D4D4D;
@@ -1096,6 +1095,16 @@ footer {
   vertical-align: -15px;
 }
 
+.check::before {
+  content: '\f00c';
+  font-family: Font Awesome\ 5 Free;
+  font-weight: 900;
+  font-size: 18px;
+  margin: 0 10px 0 0;
+  color: rgb(255, 204, 36);
+}
+
+
 /* ページネーション */
 .pagination, .current {
   margin-top: 20px;
@@ -1201,7 +1210,7 @@ footer {
     font-size: 20px;
     margin-right: 60px;
     color:#053b5f;
-    vertical-align: -10px;
+    vertical-align: -13px;
   }
 }
 
