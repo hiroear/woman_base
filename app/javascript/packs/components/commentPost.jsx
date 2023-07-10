@@ -115,7 +115,6 @@ const CommentPost = ({topic, postsLatest}) => {
   return (
     <>
       <ToastContainer />
-      <button onClick={notify}>ボタン</button>
       <div className="comment-title">
         <h3>コメントする</h3>
       </div>

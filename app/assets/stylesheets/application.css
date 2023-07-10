@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require react-toastify/dist/ReactToastify.min.css
  */
 
  /* 上記追記⇨削除  require bootstrap/dist/css/bootstrap.min.css */
