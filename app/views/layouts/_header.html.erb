@@ -1,4 +1,4 @@
-<header>
+<header id='header'>
   <p class="header-copy">女性のための交流掲示板</p>
   <div class="header-logo-menu">
     <div class="logo-area">
@@ -54,12 +54,12 @@
       <br>
     </nav>
   </div><%# .header-logo-menu%>
-</header>
 
-<nav class="pc-only">
-  <ul class="pc-nav">
-    <li><%= link_to 'コミュニティ', root_path, class: 'header-nav-item', id: 'community-nav' %></li>
-    <li><%= link_to 'マガジン', "https://intp.site/1281/wbmagazine", target: '_blank', class: 'header-nav-item', id: 'media-nav' %></li>
-    <li><%= link_to 'サイトについて', "#", class: 'header-nav-item', id: 'about-nav' %></li>
-  </ul>
-</nav>
+  <nav class="pc-only">
+    <ul class="pc-nav">
+      <li><%= link_to 'コミュニティ', root_path, class: 'header-nav-item', id: 'community-nav' %></li>
+      <li><%= link_to 'マガジン', "https://intp.site/1281/wbmagazine", target: '_blank', class: 'header-nav-item', id: 'media-nav' %></li>
+      <li><%= link_to 'サイトについて', "#", class: 'header-nav-item', id: 'about-nav' %></li>
+    </ul>
+  </nav>
+</header>

@@ -62,27 +62,37 @@ body {
 /* PC用ヘッダーナビのスタイル */
 header {
   position: fixed;
-  top: 0px;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 72px;
   background: #f8ecea;
-  z-index: 200;
+  z-index: 999;
+  transition: translateY 600ms, opacity 200ms;
 }
+header.hide{
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
 .header-logo-menu {
   display: flex;
   justify-content: space-between;
 }
+
 .logo-area img {
   text-align: left;
   width: 150px;
   margin: 10px 0 0 35px;
 }
+
 .header-copy {
   color: #8a4b71;
   font-size: 0.65rem;
   margin: 8px 0 -10px 10px;
   padding-left: 25px;
 }
+
 .header-search {
   margin: .25rem 2rem 0 0;
   display: flex;
@@ -97,6 +107,7 @@ header {
     padding: .1rem .5rem;
   }
 }
+
 .header-favorite {
   text-decoration: none;
   color: #1d4763;
@@ -108,6 +119,7 @@ header {
     font-weight: 600;
   }
 }
+
 .pc-nav {
   position: fixed;
   top: 0px;
@@ -126,6 +138,7 @@ header {
     padding: 12px;
   }
 }
+
 .header-nav-item {
   font-size: 18px;
   color: #1d4763;

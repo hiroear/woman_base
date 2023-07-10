@@ -20,6 +20,21 @@ $('#page_top').on('click', function () {
   scrollTo(0, 0);
 });
 
+// スクロールするとヘッダーが隠れる
+$(function(){
+  const header = $('#header');
+  $(window).on('scroll', function(){
+    const scroll = $(window).scrollTop();
+    let pastPos = 0;
+    const start = 300;
+    if(scroll >= pastPos && scroll >= start){
+      header.addClass('hide');
+    } else {
+      header.removeClass('hide');
+    }
+    pastPos = scroll;
+  });
+});
 
 // ページネーションをクリックすると同じところまでスクロール
 // $('.page-link').on('click', function () {
