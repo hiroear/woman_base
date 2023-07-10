@@ -1,13 +1,4 @@
 # Note: You must restart bin/webpack-dev-server for changes to take effect
-module Webpacker
-  module OneTimeCompiler
-    def compile
-      @compiled ||= super
-    end
-  end
-
-  Compiler.prepend(OneTimeCompiler) if Webpacker.config.compile?
-end
 
 default: &default
   source_path: app/javascript
